@@ -14,5 +14,11 @@ namespace account.ui
             return accountSink_.m_tAccountCreate(nName, nNick, nPassward);
         }
 
+        [HttpGet]
+        public AccountLoginC _loginAccount(string nName, string nPassward, uint nDeviceType)
+        {
+            AccountSink accountSink_ = __singleton<AccountSink>._instance();
+            return accountSink_.m_tAccountLogin(nName, nPassward, nDeviceType);
+        }
     }
 }

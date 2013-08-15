@@ -8,6 +8,7 @@ namespace account.message
         public uint m_tAccountId { get; set; }
         public uint m_tServerId { get; set; }
         public long m_tTicks { get; set; }
-        public DeviceStatus m_tDeviceStatus { get; set; }
+        public ulong m_tDeviceStatusId { get; set; }
+        public uint m_tDeviceStatusType { get; set; }
     }
 }

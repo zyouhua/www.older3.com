@@ -17,15 +17,14 @@ namespace account.core
             return accountMgr_._createAccount(nAccountName, nNickname, nPassward);
         }
 
-        public __tuple<ErrorCode_, Account> _loginAccount(string nAccountName, string nPassward, uint nDeviceType)
+        public AccountLoginC _loginAccount(string nAccountName, string nPassward, uint nDeviceType)
         {
             uint hashName_ = GenerateId._runTableId(nAccountName);
             AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
             uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
             uint accountMgrIndex_ = hashName_ % accountMgrCount_;
             AccountMgr accountMgr_ = mAccountMgrs[accountMgrIndex_];
-            return null;
-            //return accountMgr_._loginAccount(nAccountName, nPassward, nDeviceType);
+            return accountMgr_._loginAccount(nAccountName, nPassward, nDeviceType);
         }
 
         public void _runInit()
@@ -53,6 +52,7 @@ namespace account.core
         {
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
             accountSink_.m_tAccountCreate += _createAccount;
+            accountSink_.m_tAccountLogin += _loginAccount;
         }
 
         public AccountService()

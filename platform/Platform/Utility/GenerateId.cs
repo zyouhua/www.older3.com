@@ -23,13 +23,13 @@ namespace platform
 
         public static uint _runComputer()
         {
-            //86943643
+            //1282682146
             return _runHash(@"computer", 0x100);
         }
         
         public static uint _runCellphone()
         {
-            //2197838273
+            //318023319
             return _runHash(@"cellphone", 0x150);
         }
 

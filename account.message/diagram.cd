@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Delegate Name="account.message._AccountLogin">
+    <Position X="1.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAABAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account\_AccountLogin.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
   <Font Name="微软雅黑" Size="9" />
 </ClassDiagram>

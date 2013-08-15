@@ -1,6 +1,7 @@
 ﻿using System;
 
 using platform;
+using account.message;
 
 namespace account.core
 {
@@ -15,7 +16,19 @@ namespace account.core
 
         public void _runWhere(ISqlFormat nSqlFormat)
         {
-            nSqlFormat._serialize(ref mAccountId, @"WHERE id = ");
+            nSqlFormat._serialize(ref mAccountId, @"WHERE accountId = ");
+        }
+
+        public ErrorCode_ _checkPassward(string nPassward)
+        {
+            ErrorCode_ result_ = ErrorCode_.mSucess_;
+            uint loginPassward_ = GenerateId._runPasswardId(nPassward);
+            uint hashPassward_ = GenerateId._runPasswardId(mPassward);
+            if (loginPassward_ != hashPassward_)
+            {
+                result_ = ErrorCode_.mPassward_;
+            }
+            return result_;
         }
 
         public string _tableName()
@@ -26,6 +39,15 @@ namespace account.core
         public SqlType_ _sqlType()
         {
             return SqlType_.mSelect_;
+        }
+
+        public Account _createAccount()
+        {
+            Account result_ = new Account();
+            result_._setAccountId(mAccountId);
+            result_._setNick(mNickName);
+            result_._setTicks(DateTime.Now.Ticks);
+            return result_;
         }
 
         public uint _getAccountId()

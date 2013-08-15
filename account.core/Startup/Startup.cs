@@ -13,6 +13,9 @@ namespace account.core
 
             AccountService accountService_ = __singleton<AccountService>._instance();
             accountService_._runInit();
+
+            DeviceService deviceService_ = __singleton<DeviceService>._instance();
+            deviceService_._runInit();
         }
     }
 }

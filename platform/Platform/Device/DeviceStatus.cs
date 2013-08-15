@@ -12,17 +12,17 @@
             return mType;
         }
 
-        public void _setId(uint nId)
+        public void _setId(ulong nId)
         {
             mId = nId;
         }
 
-        public uint _getId()
+        public ulong _getId()
         {
             return mId;
         }
 
-        public uint m_tId
+        public ulong m_tId
         {
             get { return mId; }
             set { mId = value; }
@@ -34,7 +34,7 @@
             set { mType = value; }
         }
 
-        public DeviceStatus(uint nId, uint nType)
+        public DeviceStatus(ulong nId, uint nType)
         {
             mId = nId;
             mType = nType;
@@ -46,7 +46,7 @@
             mType = 0;
         }
 
-        uint mId;
+        ulong mId;
         uint mType;
     }
 }

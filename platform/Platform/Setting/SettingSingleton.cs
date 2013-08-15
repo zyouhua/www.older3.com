@@ -37,6 +37,16 @@ namespace platform
             return mSystemPath;
         }
 
+        public void _setServerId(uint nServerId)
+        {
+            mServerId = nServerId;
+        }
+
+        public uint _getServerId()
+        {
+            return mServerId;
+        }
+
         public string _urlDirectory()
         {
             if (null == mUrlDirectory)
@@ -51,10 +61,12 @@ namespace platform
             mDefaultUrlDirectory = null;
             mUrlDirectory = null;
             mSystemPath = null;
+            mServerId = 0;
         }
 
         string mDefaultUrlDirectory;
         string mUrlDirectory;
         string mSystemPath;
+        uint mServerId;
     }
 }
