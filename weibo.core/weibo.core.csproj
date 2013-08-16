@@ -55,6 +55,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\account.core\account.core.csproj">
+      <Project>{80BC821C-33F6-4FD8-9D0D-773A88B6AA94}</Project>
+      <Name>account.core</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\platform\platform.csproj">
       <Project>{1a3a1c4e-dc54-419a-ae95-6ae53600797d}</Project>
       <Name>platform</Name>
@@ -66,7 +71,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Startup\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

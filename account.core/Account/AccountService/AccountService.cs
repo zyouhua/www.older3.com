@@ -37,11 +37,10 @@ namespace account.core
             return accountMgr_._logoutAccount(nAccountName, nDeviceId, nDeviceType);
         }
 
-        public override void _runInit()
+        public void _runInit()
         {
             this.initAccountMgr();
             this._initSink();
-            base._runInit();
         }
 
         void initAccountMgr()

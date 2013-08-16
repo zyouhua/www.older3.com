@@ -11,9 +11,6 @@
     <__t id="account.core.sqlConfig"
      url="url://www.wanmei.com/account\account.core/config*sqlConfig.xml" />
 
-    <__t id="account.core.accountService"
-         url="url://www.wanmei.com/account\account.core/config*accountService.xml" />
-
   </rids>
 
   <uids />
