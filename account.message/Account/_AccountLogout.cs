@@ -1,4 +1,4 @@
 ﻿namespace account.message
 {
-    public delegate ErrorCode_ _AccountLogout(string nName, ulong nDeviceId, uint nDeviceType);
+    public delegate ErrorCode_ _AccountLogout(string nName, long nDeviceId, uint nDeviceType, uint nServerId);
 }

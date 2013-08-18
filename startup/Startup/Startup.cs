@@ -13,8 +13,9 @@ namespace startup
         public static void _runStart()
         {
             _initMvcEngine();
-            _initApp();
-            _startApp();
+            _initPlugin();
+            _startPlugin();
+            _runInit();
             _startMvcEngine();
         }
 
@@ -31,7 +32,7 @@ namespace startup
             mvcEngineSingleton_._runMvcEngine();
         }
 
-        static void _initApp()
+        static void _initPlugin()
         {
             string systemPath_ = HostingEnvironment.MapPath(@"~");
             systemPath_ = Path.Combine(systemPath_, @"../../bin/platform");
@@ -39,12 +40,18 @@ namespace startup
             settingSingleton_._runInit(systemPath_);
         }
 
-        static void _startApp()
+        static void _startPlugin()
         {
             string appUrl_ = @"local://";
             appUrl_ += HostingEnvironment.MapPath(@"~\platform\appUrls.xml");
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
             platformSingleton_._startApp(appUrl_);
+        }
+
+        static void _runInit()
+        {
+            InitService initService_ = __singleton<InitService>._instance();
+            initService_.m_tRunInit();
         }
     }
 }

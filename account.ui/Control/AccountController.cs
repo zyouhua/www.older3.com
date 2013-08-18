@@ -22,11 +22,10 @@ namespace account.ui
         }
 
         [HttpGet]
-        public ErrorCode_ _logoutAccount(string nName, ulong nDeviceId, uint nDeviceType)
+        public ErrorCode_ _logoutAccount(string nName, long nDeviceId, uint nDeviceType, uint nServerId)
         {
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
-            return accountSink_.m_tAccountLogout(nName, nDeviceId, nDeviceType);
+            return accountSink_.m_tAccountLogout(nName, nDeviceId, nDeviceType, nServerId);
         }
-
     }
 }

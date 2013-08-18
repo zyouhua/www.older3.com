@@ -41,9 +41,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup\Startup.cs" />
-    <Compile Include="Status\StatusService.cs" />
-    <Compile Include="Status\StatusId.cs" />
-    <Compile Include="Status\StatusMgr.cs" />
+    <Compile Include="Status\StatusService\StatusId.cs" />
+    <Compile Include="Status\StatusSql\StatusCreateB.cs" />
+    <Compile Include="Status\StatusService\StatusService.cs" />
+    <Compile Include="Status\StatusService\StatusMgr.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="%24assembly.xml">

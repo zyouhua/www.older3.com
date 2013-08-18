@@ -15,6 +15,21 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="platform.PropertyId&lt;__t&gt;">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Platform\Property\PropertyId.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="platform.InitService">
+    <Position X="4.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platform\Init\InitService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="platform.ISqlFormat" Collapsed="true">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
@@ -22,5 +37,12 @@
       <FileName>Platform\Serialize\SqlQuery\ISqlFormat.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Delegate Name="platform._RunInit">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platform\Init\_RunInit.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
   <Font Name="微软雅黑" Size="9" />
 </ClassDiagram>

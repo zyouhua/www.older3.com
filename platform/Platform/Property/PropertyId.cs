@@ -1,24 +1,25 @@
 ﻿namespace platform
 {
-    public abstract class PropertyId
+    public abstract class PropertyId<__t> : IPropertyId where __t : Property, new()
     {
-        public abstract Property _createProperty();
-
-        public void _setId(uint nId)
+        public Property _createProperty()
         {
-            mId = nId;
+            return new __t();
+        }
+
+        public static uint _classId()
+        {
+            string className_ = typeof(__t).FullName;
+            return GenerateId._runCommon(className_);
         }
 
         public uint _getId()
         {
-            return mId;
+            return _classId();
         }
 
         public PropertyId()
         {
-            mId = 0;
         }
-
-        uint mId;
     }
 }

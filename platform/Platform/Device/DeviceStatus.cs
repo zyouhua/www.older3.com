@@ -17,12 +17,12 @@
             mId = nId;
         }
 
-        public uint _getId()
+        public long _getId()
         {
             return mId;
         }
 
-        public uint m_tId
+        public long m_tId
         {
             get { return mId; }
             set { mId = value; }
@@ -34,7 +34,7 @@
             set { mType = value; }
         }
 
-        public DeviceStatus(uint nId, uint nType)
+        public DeviceStatus(long nId, uint nType)
         {
             mId = nId;
             mType = nType;
@@ -46,7 +46,7 @@
             mType = 0;
         }
 
-        uint mId;
+        long mId;
         uint mType;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using platform;
-
 using account.core;
 
 namespace weibo.core
@@ -8,11 +7,14 @@ namespace weibo.core
     {
         public void _runStart()
         {
+            StatusId statusId_ = __singleton<StatusId>._instance();
+            statusId_._runStart();
+
             AccountService accountService_ = __singleton<AccountService>._instance();
-            accountService_._registerCreate(new StatusId());
+            accountService_._registerCreate(statusId_);
 
             StatusService statusService_ = __singleton<StatusService>._instance();
-            statusService_._runInit();
+            statusService_._runStart();
         }
     }
 }

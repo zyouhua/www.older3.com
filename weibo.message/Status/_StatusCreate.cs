@@ -1,4 +1,4 @@
 ﻿namespace weibo.message
 {
-    public delegate ErrorCode_ _StatusCreate(StatusCreateS nStatusCreateS);
+    public delegate StatusCreateC _StatusCreate(StatusCreateS nStatusCreateS);
 }

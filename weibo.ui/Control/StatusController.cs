@@ -8,7 +8,7 @@ namespace weibo.ui
     public class StatusController : ApiController
     {
         [HttpPost]
-        public ErrorCode_ _createStatus(StatusCreateS nStatusCreateS)
+        public StatusCreateC _createStatus(StatusCreateS nStatusCreateS)
         {
             StatusSink statusSink_ = __singleton<StatusSink>._instance();
             return statusSink_.m_tStatusCreate(nStatusCreateS);

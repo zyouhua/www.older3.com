@@ -5,7 +5,17 @@ namespace platform
 {
     public class PropertyMgr
     {
-        public __t _getProperty<__t>(PropertyId nPropertyId) where __t : Property
+        public __t _getProperty<__t>(uint nPropertyId) where __t : Property
+        {
+            __t result_ = default(__t);
+            if (mPropertys.ContainsKey(nPropertyId))
+            {
+                result_ = (__t)mPropertys[nPropertyId];
+            }
+            return result_;
+        }
+
+        public __t _getProperty<__t>(IPropertyId nPropertyId) where __t : Property
         {
             __t result_ = default(__t);
             uint propertyId_ = nPropertyId._getId();
@@ -16,7 +26,7 @@ namespace platform
             return result_;
         }
 
-        public void _addProperty(Property nProperty, PropertyId nPropertyId)
+        public void _addProperty(Property nProperty, IPropertyId nPropertyId)
         {
             uint propertyId_ = nPropertyId._getId();
             if (mPropertys.ContainsKey(propertyId_))

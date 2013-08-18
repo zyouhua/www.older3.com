@@ -27,23 +27,45 @@ namespace account.core
             return accountMgr_._loginAccount(nAccountName, nPassward, nDeviceType);
         }
 
-        public ErrorCode_ _logoutAccount(string nAccountName, ulong nDeviceId, uint nDeviceType)
+        public ErrorCode_ _logoutAccount(string nAccountName, long nDeviceId, uint nDeviceType, uint nServerId)
+        {
+            ErrorCode_ result_ = this._checkServerId(nServerId);
+            if (ErrorCode_.mSucess_ == result_)
+            {
+                uint hashName_ = GenerateId._runTableId(nAccountName);
+                AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
+                uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
+                uint accountMgrIndex_ = hashName_ % accountMgrCount_;
+                AccountMgr accountMgr_ = mAccountMgrs[accountMgrIndex_];
+                result_ = accountMgr_._logoutAccount(nAccountName, nDeviceId, nDeviceType);
+            }
+            return result_;
+        }
+
+        public Account _getAccount(string nAccountName, long nDeviceId, uint nDeviceType)
         {
             uint hashName_ = GenerateId._runTableId(nAccountName);
             AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
             uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
             uint accountMgrIndex_ = hashName_ % accountMgrCount_;
             AccountMgr accountMgr_ = mAccountMgrs[accountMgrIndex_];
-            return accountMgr_._logoutAccount(nAccountName, nDeviceId, nDeviceType);
+            return accountMgr_._getAccount(nAccountName, nDeviceId, nDeviceType);
         }
 
-        public void _runInit()
+        public ErrorCode_ _checkServerId(uint nServerId)
         {
-            this.initAccountMgr();
-            this._initSink();
+            SettingSingleton settingSingleton_ = __singleton<SettingSingleton>._instance();
+            uint serverId_ = settingSingleton_._getServerId();
+            return (serverId_ == nServerId) ? ErrorCode_.mSucess_ : ErrorCode_.mServerId_;
         }
 
-        void initAccountMgr()
+        public void _runStart()
+        {
+            this._startAccountMgr();
+            this._startSink();
+        }
+
+        void _startAccountMgr()
         {
             string accountConfigUrl_ = @"rid://account.core.accountConfig";
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
@@ -58,7 +80,7 @@ namespace account.core
             }
         }
 
-        void _initSink()
+        void _startSink()
         {
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
             accountSink_.m_tAccountCreate += _createAccount;

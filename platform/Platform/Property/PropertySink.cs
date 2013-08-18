@@ -7,15 +7,25 @@ namespace platform
     {
         public void _runCreate(PropertyMgr nPropertyMgr)
         {
-            foreach (KeyValuePair<uint, PropertyId> i in mCreates)
+            foreach (KeyValuePair<uint, IPropertyId> i in mCreates)
             {
-                PropertyId propertyId_ = i.Value;
+                IPropertyId propertyId_ = i.Value;
                 Property property_ = propertyId_._createProperty();
                 nPropertyMgr._addProperty(property_, propertyId_);
             }
         }
 
-        public void _registerCreate(PropertyId nPropertyId)
+        public IPropertyId _getPropertyId(uint nPropertyId)
+        {
+            IPropertyId result_ = null;
+            if (mCreates.ContainsKey(nPropertyId))
+            {
+                result_ = mCreates[nPropertyId];
+            }
+            return result_;
+        }
+
+        public void _registerCreate(IPropertyId nPropertyId)
         {
             uint propertyId_ = nPropertyId._getId();
             if (mCreates.ContainsKey(propertyId_))
@@ -29,9 +39,9 @@ namespace platform
 
         public PropertySink()
         {
-            mCreates = new Dictionary<uint, PropertyId>();
+            mCreates = new Dictionary<uint, IPropertyId>();
         }
 
-        Dictionary<uint, PropertyId> mCreates;
+        Dictionary<uint, IPropertyId> mCreates;
     }
 }

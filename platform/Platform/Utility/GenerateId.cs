@@ -5,12 +5,12 @@ namespace platform
 {
     public class GenerateId
     {
-        public static ulong _runId(string nName)
+        public static long _runId(string nName)
         {
             long minute_ = 100000000;
             long baseTime_ = 6349259520;
             uint ticks_ = (uint)(DateTime.Now.Ticks / minute_ - baseTime_);
-            ulong result_ = (ulong)_runCommon(nName);
+            long result_ = (long)_runCommon(nName);
             result_ <<= 32;
             result_ += ticks_;
             return result_;

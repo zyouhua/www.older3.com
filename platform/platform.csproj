@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Platform\Init\InitService.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\MySqlReader.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\ISqlFormat.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\ISqlStream.cs" />
@@ -154,12 +155,14 @@
     <Compile Include="Platform\Serialize\Xml\XmlISerialize.cs" />
     <Compile Include="Platform\Serialize\Xml\XmlOSerialize.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlQuery.cs" />
-    <Compile Include="Platform\Property\PropertyId.cs" />
+    <Compile Include="Platform\Property\IPropertyId.cs" />
     <Compile Include="Platform\Thread\MissionPool\MissionPool.cs" />
     <Compile Include="Platform\Property\PropertySink.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlType_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlDeal_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlSingleton.cs" />
+    <Compile Include="Platform\Property\PropertyId.cs" />
+    <Compile Include="Platform\Init\_RunInit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="diagram.cd" />

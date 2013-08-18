@@ -8,7 +8,22 @@ namespace account.core
 {
     public class Account : PropertyMgr
     {
-        public ErrorCode_ _logout(ulong nDeviceId, uint nDeviceType)
+        public ErrorCode_ _checkErrorCode(long nDeviceId, uint nDeviceType)
+        {
+            ErrorCode_ result_ = ErrorCode_.mSucess_;
+            DeviceStatus deviceStatus_ = this._getDeviceStatus(nDeviceType);
+            if (null == deviceStatus_)
+            {
+                result_ = ErrorCode_.mDeviceType_;
+            }
+            if ((null != deviceStatus_) && (deviceStatus_._getId() != nDeviceId))
+            {
+                result_ = ErrorCode_.mDeviceId_;
+            }
+            return result_;
+        }
+
+        public ErrorCode_ _logout(long nDeviceId, uint nDeviceType)
         {
             ErrorCode_ result_ = ErrorCode_.mSucess_;
             DeviceStatus deviceStatus_ = this._getDeviceStatus(nDeviceType);
@@ -34,7 +49,7 @@ namespace account.core
 
         public void _addDeviceType(uint nDeviceType)
         {
-            uint id_ = GenerateId._runId(@"account");
+            long id_ = GenerateId._runId(@"account");
             DeviceStatus deviceStatus_ = new DeviceStatus(id_, nDeviceType);
             mDeviceStatus[nDeviceType] = deviceStatus_;
         }
@@ -47,6 +62,16 @@ namespace account.core
                 result_ = mDeviceStatus[nDeviceType];
             }
             return result_;
+        }
+
+        public void _setAccountMgr(AccountMgr nAccountMgr)
+        {
+            mAccountMgr = nAccountMgr;
+        }
+
+        public AccountMgr _getAccountMgr()
+        {
+            return mAccountMgr;
         }
 
         public void _setNick(string nNick)
@@ -82,12 +107,14 @@ namespace account.core
         public Account()
         {
             mDeviceStatus = new Dictionary<uint, DeviceStatus>();
+            mAccountMgr = null;
             mNick = null;
             mAccountId = 0;
             mTicks = 0;
         }
 
         Dictionary<uint, DeviceStatus> mDeviceStatus;
+        AccountMgr mAccountMgr;
         uint mAccountId;
         string mNick;
         long mTicks;

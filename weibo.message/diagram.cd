@@ -18,8 +18,22 @@
   <Class Name="weibo.message.StatusCreateS" Collapsed="true">
     <Position X="2.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gAQAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAACAA=</HashCode>
       <FileName>Status\StatusCreateS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="weibo.message.StatusCreateC">
+    <Position X="1.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status\StatusCreateC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="weibo.message.CreateStatus">
+    <Position X="3.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status\CreateStatus.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="weibo.message.ErrorCode_" Collapsed="true">

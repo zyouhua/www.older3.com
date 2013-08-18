@@ -29,7 +29,7 @@ namespace account.core
             return result_;
         }
 
-        public ErrorCode_ _logoutAccount(string nAccountName, ulong nDeviceId, uint nDeviceType)
+        public ErrorCode_ _logoutAccount(string nAccountName, long nDeviceId, uint nDeviceType)
         {
             ErrorCode_ result_ = ErrorCode_.mSucess_;
             Account account_ = this._getAccount(nAccountName);
@@ -44,6 +44,21 @@ namespace account.core
             else
             {
                 result_ = ErrorCode_.mNoLogin_;
+            }
+            return result_;
+        }
+
+        public Account _getAccount(string nAccountName, long nDeviceId, uint nDeviceType)
+        {
+            Account result_ = null;
+            Account account_ = this._getAccount(nAccountName);
+            if (null != account_)
+            {
+                ErrorCode_ errorCode_ = account_._checkErrorCode(nDeviceId, nDeviceType);
+                if (ErrorCode_.mSucess_ == errorCode_)
+                {
+                    result_ = account_;
+                }
             }
             return result_;
         }
@@ -85,6 +100,7 @@ namespace account.core
             {
                 result_ = nAccountLoginB._createAccount();
                 result_._addDeviceType(nDeviceType);
+                result_._setAccountMgr(this);
                 mAccounts[accountId] = result_;
             }
             return result_;

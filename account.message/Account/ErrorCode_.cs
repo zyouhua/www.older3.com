@@ -8,6 +8,7 @@
         mDevice_,
         mDeviceType_,
         mDeviceId_,
-        mNoLogin_
+        mNoLogin_,
+        mServerId_
     }
 }

@@ -13,10 +13,10 @@ namespace account.core
             platformSingleton_._loadHeadstream<SqlSingleton>(sqlSingleton_, sqlUrl_);
 
             AccountService accountService_ = __singleton<AccountService>._instance();
-            accountService_._runInit();
+            accountService_._runStart();
 
             DeviceService deviceService_ = __singleton<DeviceService>._instance();
-            deviceService_._runInit();
+            deviceService_._runStart();
         }
     }
 }
