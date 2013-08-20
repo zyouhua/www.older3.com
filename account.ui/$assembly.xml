@@ -7,7 +7,15 @@
 
   <uids />
 
-  <addins />
+  <addins>
+
+    <__t id="account.ui.message"
+         isInclude="false"
+         include="url://www.wanmei.com/account\account.message"
+         optimal=""
+         forceUsed="false"/>
+
+  </addins>
 
   <plugins />
   
