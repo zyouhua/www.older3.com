@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1A3A1C4E-DC54-419A-AE95-6AE53600797D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>platform</RootNamespace>
+    <AssemblyName>platform</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\platform\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Platform\Serialize\SqlQuery\MySqlReader.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\ISqlFormat.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\ISqlStream.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\ISqlHeadstream.cs" />
+    <Compile Include="Platform\AppUrls\AppUrls.cs" />
+    <Compile Include="Platform\Device\DeviceService.cs" />
+    <Compile Include="Platform\Device\DeviceStatus.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlErrorCode_.cs" />
+    <Compile Include="Platform\Thread\MissionPool\Mission.cs" />
+    <Compile Include="Platform\Property\IProperty.cs" />
+    <Compile Include="Platform\Property\PropertyMgr.cs" />
+    <Compile Include="Platform\Log\ILog.cs" />
+    <Compile Include="Platform\Log\LogSingleton.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlFormat.cs" />
+    <Compile Include="Platform\Thread\OncePool\IRunnable.cs" />
+    <Compile Include="Platform\Thread\OncePool\Once.cs" />
+    <Compile Include="Platform\Thread\OncePool\OncePool.cs" />
+    <Compile Include="Platform\Utility\GenerateId.cs" />
+    <Compile Include="Platform\Platform\Culture\Culture.cs" />
+    <Compile Include="Platform\Url\Assembly\AddinUdl.cs" />
+    <Compile Include="Platform\Platform\Culture\ICulture.cs" />
+    <Compile Include="Platform\Platform\PlatformSingleton.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyDouble.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyFloat.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyI16.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyI32.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyI64.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyI8.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyStr.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyU16.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyU32.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyU64.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Key\IKeyU8.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirDouble.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirFloat.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirI16.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirI32.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirI64.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirI8.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirStr.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirU16.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirU32.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirU64.cs" />
+    <Compile Include="Platform\Serialize\Serialize\VirKey\IVirU8.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\IStreamCreator.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\IVirserialize.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\IVirstream.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\NoAssignVirstreamException.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\NoStreamCreatorException.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Virstream\VirstreamCreateException.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUdl\IStdUdl.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUdl\StdUdl.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUfl\CreateHaveUrlException.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUfl\IStdUfl.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUfl\LoadHaveUrlException.cs" />
+    <Compile Include="Platform\Serialize\Url\StdUfl\StdUfl.cs" />
+    <Compile Include="Platform\Serialize\Url\Udl\IUdl.cs" />
+    <Compile Include="Platform\Serialize\Url\Udl\StringElement.cs" />
+    <Compile Include="Platform\Serialize\Url\Udl\StringTable.cs" />
+    <Compile Include="Platform\Serialize\Url\Udl\Udl.cs" />
+    <Compile Include="Platform\Serialize\Url\Udl\UdlHeadstream.cs" />
+    <Compile Include="Platform\Setting\SettingSingleton.cs" />
+    <Compile Include="Platform\Startup\IStartup.cs" />
+    <Compile Include="Platform\UrlParser\DirUrl.cs" />
+    <Compile Include="Platform\UrlParser\UidSingleton\Rid.cs" />
+    <Compile Include="Platform\UrlParser\UidSingleton\RidOverlapException.cs" />
+    <Compile Include="Platform\UrlParser\UidSingleton\Uid.cs" />
+    <Compile Include="Platform\UrlParser\UidSingleton\UidOverlapException.cs" />
+    <Compile Include="Platform\UrlParser\UidSingleton\UidSingleton.cs" />
+    <Compile Include="Platform\UrlParser\UrlParser.cs" />
+    <Compile Include="Platform\UrlParser\UrlStruct.cs" />
+    <Compile Include="Platform\UrlParser\UrlType_.cs" />
+    <Compile Include="Platform\Url\Assembly\AssemblyDescriptor.cs" />
+    <Compile Include="Platform\Url\Assembly\AssemblyUdl.cs" />
+    <Compile Include="Platform\Url\Assembly\AssemblyUfl.cs" />
+    <Compile Include="Platform\Url\Assembly\PluginUfl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\Headstream.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\IHeadstream.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\ISerialize.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\IStream.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\SerializeIO_.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\SerializeType_.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\Stream.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\_SerializeSlot.cs" />
+    <Compile Include="Platform\Serialize\Serialize\Headstream\_SerializeTypeSlot.cs" />
+    <Compile Include="Platform\Serialize\Text\TextISerialize.cs" />
+    <Compile Include="Platform\Serialize\Text\TextOSerialize.cs" />
+    <Compile Include="Platform\Serialize\Url\Ufl\IUfl.cs" />
+    <Compile Include="Platform\Serialize\Url\Ufl\Ufl.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\ICreate.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\IDelete.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\IDirty.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\ILoad.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\ISave.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\IUrl.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\SaveSingleton.cs" />
+    <Compile Include="Platform\Serialize\Url\Url\Url.cs" />
+    <Compile Include="Platform\Utility\Command.cs" />
+    <Compile Include="Platform\Utility\ICommand.cs" />
+    <Compile Include="Platform\Utility\IInit.cs" />
+    <Compile Include="Platform\Utility\InitException.cs" />
+    <Compile Include="Platform\Utility\Status_.cs" />
+    <Compile Include="Platform\Utility\_GetBoolSlot.cs" />
+    <Compile Include="Platform\Utility\_GetStringSlot.cs" />
+    <Compile Include="Platform\Utility\_RunSlot.cs" />
+    <Compile Include="Platform\Utility\_SetStringSlot.cs" />
+    <Compile Include="Platform\Utility\__singleton.cs" />
+    <Compile Include="Platform\Utility\__tuple.cs" />
+    <Compile Include="Platform\Serialize\Xml\XmlISerialize.cs" />
+    <Compile Include="Platform\Serialize\Xml\XmlOSerialize.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlQuery.cs" />
+    <Compile Include="Platform\Property\PropertyId.cs" />
+    <Compile Include="Platform\Thread\MissionPool\MissionPool.cs" />
+    <Compile Include="Platform\Property\PropertySink.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlType_.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlDeal_.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlSingleton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="diagram.cd" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
