@@ -3,7 +3,12 @@
 
   <dependences />
 
-  <rids />
+  <rids>
+
+    <__t id="account.core.accoutConfig"
+         url="url://www.wanmei.com/account\account.core/config*accountConfig.xml" />
+
+  </rids>
 
   <uids />
 

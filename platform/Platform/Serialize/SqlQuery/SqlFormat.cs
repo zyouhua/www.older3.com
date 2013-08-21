@@ -5,7 +5,7 @@ namespace platform
 {
     public class SqlFormat : ISqlFormat
     {
-        static readonly string mCharacter = @"`";
+        static readonly string mCharacter = @"'";
 
         public void _serialize<__t>(ref List<__t> nValue, string nName) where __t : ISqlStream
         {
