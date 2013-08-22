@@ -6,7 +6,7 @@ using account.message;
 
 namespace account.core
 {
-    public class Account
+    public class Account : PropertyMgr
     {
         public ErrorCode_ _logout(ulong nDeviceId, uint nDeviceType)
         {

@@ -3,25 +3,47 @@ using System.Collections.Generic;
 
 namespace platform
 {
-    public class PropertySink
+    public class PropertySink : Headstream
     {
-        public void _registerInit(PropertyId nPropertyId)
+        public override void _headSerialize(ISerialize nSerialize)
+        {
+            nSerialize._serialize(ref mCreateUrls, @"createUrls");
+        }
+
+        public override string _streamName()
+        {
+            return @"propertySink";
+        }
+
+        public virtual void _runInit()
+        {
+            PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
+            foreach (string i in mCreateUrls)
+            {
+                PropertyId propertyId_ = platformSingleton_._findInterface<PropertyId>(i);
+                this._registerCreate(propertyId_);
+            }
+        }
+
+        void _registerCreate(PropertyId nPropertyId)
         {
             uint propertyId_ = nPropertyId._getId();
-            if (mInits.ContainsKey(propertyId_))
+            if (mCreates.ContainsKey(propertyId_))
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
                 logSingleton_._logError(@"PropertySink _registerInit ContainsKey");
                 throw new Exception();
             }
-            mInits[propertyId_] = nPropertyId;
+            mCreates[propertyId_] = nPropertyId;
         }
 
         public PropertySink()
         {
-            mInits = new Dictionary<uint, PropertyId>();
+            mCreates = new Dictionary<uint, PropertyId>();
+            mCreateUrls = new List<string>();
         }
 
-        Dictionary<uint, PropertyId> mInits;
+        Dictionary<uint, PropertyId> mCreates;
+        List<string> mCreateUrls;
     }
 }

@@ -51,7 +51,7 @@
     <Compile Include="Platform\Device\DeviceStatus.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlErrorCode_.cs" />
     <Compile Include="Platform\Thread\MissionPool\Mission.cs" />
-    <Compile Include="Platform\Property\IProperty.cs" />
+    <Compile Include="Platform\Property\Property.cs" />
     <Compile Include="Platform\Property\PropertyMgr.cs" />
     <Compile Include="Platform\Log\ILog.cs" />
     <Compile Include="Platform\Log\LogSingleton.cs" />

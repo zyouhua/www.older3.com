@@ -6,12 +6,15 @@ namespace account.core
     {
         public void _runStart()
         {
-            string sqlUrl_ = @"url://www.wanmei.com/account\account.core/config*sqlConfig.xml";
-            SqlSingleton sqlSingleton_ = __singleton<SqlSingleton>._instance();
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
+
+            string sqlUrl_ = @"rid://account.core.sqlConfig";
+            SqlSingleton sqlSingleton_ = __singleton<SqlSingleton>._instance();
             platformSingleton_._loadHeadstream<SqlSingleton>(sqlSingleton_, sqlUrl_);
 
+            string accountServiceUrl_ = @"rid://account.core.accountService";
             AccountService accountService_ = __singleton<AccountService>._instance();
+            platformSingleton_._loadHeadstream<AccountService>(accountService_, accountServiceUrl_);
             accountService_._runInit();
 
             DeviceService deviceService_ = __singleton<DeviceService>._instance();

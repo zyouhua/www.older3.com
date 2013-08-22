@@ -5,7 +5,7 @@ using account.message;
 
 namespace account.core
 {
-    public class AccountService
+    public class AccountService : PropertySink
     {
         public ErrorCode_ _createAccount(string nAccountName, string nNickname, string nPassward)
         {
@@ -37,15 +37,16 @@ namespace account.core
             return accountMgr_._logoutAccount(nAccountName, nDeviceId, nDeviceType);
         }
 
-        public void _runInit()
+        public override void _runInit()
         {
             this.initAccountMgr();
             this._initSink();
+            base._runInit();
         }
 
         void initAccountMgr()
         {
-            string accountConfigUrl_ = @"rid://account.core.accoutConfig";
+            string accountConfigUrl_ = @"rid://account.core.accountConfig";
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
             AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
             platformSingleton_._loadHeadstream<AccountConfig>(accountConfig_, accountConfigUrl_);

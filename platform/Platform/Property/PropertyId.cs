@@ -2,7 +2,7 @@
 {
     public abstract class PropertyId
     {
-        public abstract IProperty _createProperty();
+        public abstract Property _createProperty();
 
         public void _setId(uint nId)
         {

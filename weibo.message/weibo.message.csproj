@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80BC821C-33F6-4FD8-9D0D-773A88B6AA94}</ProjectGuid>
+    <ProjectGuid>{F7B6F6C7-EE38-45AB-A784-5F6A15B39257}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>account.core</RootNamespace>
-    <AssemblyName>account.core</AssemblyName>
+    <RootNamespace>weibo.message</RootNamespace>
+    <AssemblyName>weibo.message</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\home\www.wanmei.com\account\^arc^account.core\</OutputPath>
+    <OutputPath>..\..\bin\home\www.wanmei.com\weibo\^arc^weibo.message\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,22 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AccountService\Account.cs" />
-    <Compile Include="Account\AccountService\AccountMgr.cs" />
-    <Compile Include="Account\AccountService\AccountService.cs" />
-    <Compile Include="Account\AccountSql\AccountCreateB.cs" />
-    <Compile Include="Account\AccountSql\AccountLoginB.cs" />
-    <Compile Include="Account\Config\AccountConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup\Startup.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="diagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="%24assembly.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="diagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="%24descriptor.xml">
@@ -62,30 +53,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\account.message\account.message.csproj">
-      <Project>{1b223791-5b3a-467b-abf2-7350b625f58a}</Project>
-      <Name>account.message</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\platform\platform.csproj">
       <Project>{1a3a1c4e-dc54-419a-ae95-6ae53600797d}</Project>
       <Name>platform</Name>
       <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="config\accountConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="config\sqlConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="config\accountService.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="SqlScript\Account.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

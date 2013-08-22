@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<assemblyDescriptor>
+
+  <dependences />
+
+  <rids />
+
+  <uids />
+
+  <addins>
+
+    <__t id="weibo.ui.message"
+         isInclude="false"
+         include="url://www.wanmei.com/weibo\weibo.message"
+         optimal=""
+         forceUsed="false"/>
+
+  </addins>
+
+  <plugins />
+  
+</assemblyDescriptor>

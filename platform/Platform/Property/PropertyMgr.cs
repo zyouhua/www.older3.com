@@ -5,7 +5,7 @@ namespace platform
 {
     public class PropertyMgr
     {
-        public __t _getProperty<__t>(PropertyId nPropertyId) where __t : IProperty
+        public __t _getProperty<__t>(PropertyId nPropertyId) where __t : Property
         {
             __t result_ = default(__t);
             uint propertyId_ = nPropertyId._getId();
@@ -16,7 +16,7 @@ namespace platform
             return result_;
         }
 
-        public void _addProperty<__t>(__t nT, PropertyId nPropertyId) where __t : IProperty
+        public void _addProperty<__t>(__t nT, PropertyId nPropertyId) where __t : Property
         {
             uint propertyId_ = nPropertyId._getId();
             if (mPropertys.ContainsKey(propertyId_))
@@ -30,9 +30,9 @@ namespace platform
 
         public PropertyMgr()
         {
-            mPropertys = new Dictionary<uint, IProperty>();
+            mPropertys = new Dictionary<uint, Property>();
         }
 
-        Dictionary<uint, IProperty> mPropertys;
+        Dictionary<uint, Property> mPropertys;
     }
 }
