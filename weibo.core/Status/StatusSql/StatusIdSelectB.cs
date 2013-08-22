@@ -8,6 +8,25 @@ namespace weibo.core
 {
     public class StatusIdSelectB : ISqlHeadstream
     {
+        public void _runSelect(ISqlFormat nSqlFormat)
+        {
+            nSqlFormat._serialize(ref mStatusIdBs, @"statusIdBs");
+        }
+
+        public void _runWhere(ISqlFormat nSqlFormat)
+        {
+        }
+
+        public string _tableName()
+        {
+            return @"statusId";
+        }
+
+        public SqlType_ _sqlType()
+        {
+            return SqlType_.mSelect_;
+        }
+
         public void _initStatusId()
         {
             StatusService statusService_ = __singleton<StatusService>._instance();
@@ -29,25 +48,6 @@ namespace weibo.core
                     throw new Exception();
                 }
             }
-        }
-
-        public void _runSelect(ISqlFormat nSqlFormat)
-        {
-            nSqlFormat._serialize(ref mStatusIdBs, @"statusIdBs");
-        }
-
-        public void _runWhere(ISqlFormat nSqlFormat)
-        {
-        }
-
-        public string _tableName()
-        {
-            return @"statusId";
-        }
-
-        public SqlType_ _sqlType()
-        {
-            return SqlType_.mSelect_;
         }
 
         public StatusIdSelectB()
