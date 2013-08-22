@@ -29,6 +29,25 @@ namespace account.core
             return result_;
         }
 
+        public ErrorCode_ _logoutAccount(string nAccountName, ulong nDeviceId, uint nDeviceType)
+        {
+            ErrorCode_ result_ = ErrorCode_.mSucess_;
+            Account account_ = this._getAccount(nAccountName);
+            if (null != account_)
+            {
+                result_ = account_._logout(nDeviceId, nDeviceType);
+                if (!account_._isOnline())
+                {
+                    mAccounts.Remove(account_._getAccountId());
+                }
+            }
+            else
+            {
+                result_ = ErrorCode_.mNoLogin_;
+            }
+            return result_;
+        }
+
         void _loginAccountLoginB(string nAccountName, string nPassward, uint nDeviceType, AccountLoginC nAccountLoginC)
         {
             AccountLoginB accountLoginB_ = new AccountLoginB(nAccountName, mId);
@@ -46,8 +65,9 @@ namespace account.core
         void _loginAccount(AccountLoginB nAccountLoginB, uint nDeviceType, AccountLoginC nAccountLoginC)
         {
             Account account_ = this._loginAccount(nAccountLoginB, nDeviceType);
-            nAccountLoginC.m_tAccountId = account_._getAccountId();
-            nAccountLoginC.m_tTicks = account_._getTicks();
+            nAccountLoginC.m_tAccountId = nAccountLoginB._getAccountId();
+            nAccountLoginC.m_tNickName = nAccountLoginB._getNick();
+            nAccountLoginC.m_tTicks = nAccountLoginB._getTicks();
             DeviceStatus deviceStatus_ = account_._getDeviceStatus(nDeviceType);
             nAccountLoginC.m_tDeviceStatusId = deviceStatus_._getId();
             nAccountLoginC.m_tDeviceStatusType = deviceStatus_._getType();
@@ -68,7 +88,6 @@ namespace account.core
                 mAccounts[accountId] = result_;
             }
             return result_;
-
         }
 
         ErrorCode_ _checkErrorCode(SqlErrorCode_ nSqlErrorCode, string nPassward, AccountLoginB nAccountLoginB)
@@ -84,6 +103,17 @@ namespace account.core
         ErrorCode_ _checkErrorCode(uint nDeviceType)
         {
             return this._checkDevice(nDeviceType);
+        }
+
+        public Account _getAccount(string nAccountName)
+        {
+            Account result_ = null;
+            uint accountId_ = GenerateId._runNameId(nAccountName);
+            if (mAccounts.ContainsKey(accountId_))
+            {
+                result_ = mAccounts[accountId_];
+            }
+            return result_;
         }
         
         ErrorCode_ _getErrorCode(SqlErrorCode_ nSqlErrorCode)

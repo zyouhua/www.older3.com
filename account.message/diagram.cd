@@ -7,5 +7,12 @@
       <FileName>Account\_AccountLogin.cs</FileName>
     </TypeIdentifier>
   </Delegate>
+  <Delegate Name="account.message._AccountLogout">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account\_AccountLogout.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
   <Font Name="微软雅黑" Size="9" />
 </ClassDiagram>

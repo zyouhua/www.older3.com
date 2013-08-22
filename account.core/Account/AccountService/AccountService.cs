@@ -27,6 +27,16 @@ namespace account.core
             return accountMgr_._loginAccount(nAccountName, nPassward, nDeviceType);
         }
 
+        public ErrorCode_ _logoutAccount(string nAccountName, ulong nDeviceId, uint nDeviceType)
+        {
+            uint hashName_ = GenerateId._runTableId(nAccountName);
+            AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
+            uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
+            uint accountMgrIndex_ = hashName_ % accountMgrCount_;
+            AccountMgr accountMgr_ = mAccountMgrs[accountMgrIndex_];
+            return accountMgr_._logoutAccount(nAccountName, nDeviceId, nDeviceType);
+        }
+
         public void _runInit()
         {
             this.initAccountMgr();
@@ -53,6 +63,7 @@ namespace account.core
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
             accountSink_.m_tAccountCreate += _createAccount;
             accountSink_.m_tAccountLogin += _loginAccount;
+            accountSink_.m_tAccountLogout += _logoutAccount;
         }
 
         public AccountService()

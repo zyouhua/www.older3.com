@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\_AccountLogout.cs" />
     <Compile Include="Account\AccountLoginC.cs" />
     <Compile Include="Account\AccountSink.cs" />
     <Compile Include="Account\ErrorCode_.cs" />

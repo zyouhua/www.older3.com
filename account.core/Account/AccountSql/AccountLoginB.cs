@@ -55,6 +55,16 @@ namespace account.core
             return mAccountId;
         }
 
+        public string _getNick()
+        {
+            return mNickName;
+        }
+
+        public long _getTicks()
+        {
+            return mTicks;
+        }
+
         public AccountLoginB(string nAccountName, uint nAccountMgrId)
         {
             mAccountId = GenerateId._runNameId(nAccountName);

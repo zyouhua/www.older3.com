@@ -2,11 +2,36 @@
 using System.Collections.Generic;
 
 using platform;
+using account.message;
 
 namespace account.core
 {
     public class Account
     {
+        public ErrorCode_ _logout(ulong nDeviceId, uint nDeviceType)
+        {
+            ErrorCode_ result_ = ErrorCode_.mSucess_;
+            DeviceStatus deviceStatus_ = this._getDeviceStatus(nDeviceType);
+            if (null == deviceStatus_)
+            {
+                result_ = ErrorCode_.mDeviceType_;
+            }
+            if ((null != deviceStatus_) && (deviceStatus_._getId() != nDeviceId))
+            {
+                result_ = ErrorCode_.mDeviceId_;
+            }
+            if (ErrorCode_.mSucess_ == result_)
+            {
+                mDeviceStatus.Remove(nDeviceType);
+            }
+            return result_;
+        }
+
+        public bool _isOnline()
+        {
+            return (mDeviceStatus.Count > 0);
+        }
+
         public void _addDeviceType(uint nDeviceType)
         {
             ulong id_ = GenerateId._runId(@"account");

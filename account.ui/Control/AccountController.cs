@@ -20,5 +20,13 @@ namespace account.ui
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
             return accountSink_.m_tAccountLogin(nName, nPassward, nDeviceType);
         }
+
+        [HttpGet]
+        public ErrorCode_ _logoutAccount(string nName, ulong nDeviceId, uint nDeviceType)
+        {
+            AccountSink accountSink_ = __singleton<AccountSink>._instance();
+            return accountSink_.m_tAccountLogout(nName, nDeviceId, nDeviceType);
+        }
+
     }
 }

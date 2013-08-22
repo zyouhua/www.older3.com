@@ -7,6 +7,7 @@
         mPassward_,
         mDevice_,
         mDeviceType_,
-        mDeviceId_
+        mDeviceId_,
+        mNoLogin_
     }
 }
