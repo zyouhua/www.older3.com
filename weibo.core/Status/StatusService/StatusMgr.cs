@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using platform;
 using weibo.message;
@@ -8,23 +9,16 @@ namespace weibo.core
 {
     public class StatusMgr : Property
     {
-        public StatusCreateC _createStatus(Account nAccount, StatusCreateS nStatusCreateS)
+        public void _createStatus(Account nAccount, StatusCreateS nStatusCreateS, StatusCreateC nStatusCreateC)
         {
-            Account account_ = this._getPropertyMgr<Account>();
-            AccountMgr accountMgr_ = account_._getAccountMgr();
-            return this._createStatus(nAccount, accountMgr_, nStatusCreateS);
-        }
-
-        StatusCreateC _createStatus(Account nAccount, AccountMgr nAccountMgr, StatusCreateS nStatusCreateS)
-        {
-            StatusService statusService_ = __singleton<StatusService>._instance();
-            StatusId statusId_ = nAccountMgr._getProperty<StatusId>(statusService_._getId());
-            uint tableId_ = statusId_._getTableId();
-            uint accountMgrId_ = nAccountMgr._getId();
+            AccountMgr accountMgr_ = nAccount._getAccountMgr();
+            StatusOption statusOption_ = accountMgr_._getProperty<StatusOption>(StatusService._classId());
+            uint tableId_ = statusOption_._getTableId();
+            uint accountMgrId_ = accountMgr_._getId();
             SqlQuery sqlQuery_ = new SqlQuery();
-            if (statusId_._createTable())
+            if (statusOption_._createTable())
             {
-                tableId_ = statusId_._generateTableId();
+                tableId_ = statusOption_._generateTableId();
                 StatusTableCreateB statusTableCreateB_ = new StatusTableCreateB(tableId_, accountMgrId_);
                 sqlQuery_._addHeadstream(statusTableCreateB_);
             }
@@ -36,9 +30,24 @@ namespace weibo.core
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
                 logSingleton_._logError(string.Format(@"StatusService _createStatus _runSqlQuery:{0}", sqlErrorCode_));
-                throw new Exception();
+                nStatusCreateC.m_tErrorCode = this._getErrorCode(sqlErrorCode_);
             }
-            return null;
+            else
+            {
+                nStatusCreateC.m_tErrorCode = ErrorCode_.mSucess_;
+            }
         }
+
+        ErrorCode_ _getErrorCode(SqlErrorCode_ nSqlErrorCode)
+        {
+            ErrorCode_ result_ = ErrorCode_.mSucess_;
+            if (SqlErrorCode_.mFail_ == nSqlErrorCode)
+            {
+                result_ = ErrorCode_.mFail_;
+            }
+            return result_;
+        }
+
+        Dictionary<long, StatusId> mStatusId;
     }
 }

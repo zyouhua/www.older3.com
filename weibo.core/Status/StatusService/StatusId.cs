@@ -2,39 +2,25 @@
 
 namespace weibo.core
 {
-    public class StatusId : Property
+    public class StatusId : ISqlStream
     {
-        public bool _createTable()
+        public void _runSelect(SqlFormat nSqlFormat)
         {
-            return ((mTableId % 10000) == 0);
+            nSqlFormat._serialize(ref mTableId, @"tableId");
+            nSqlFormat._serialize(ref mId, @"id");
         }
 
-        public uint _tableId()
+        public void _runWhen(SqlFormat nSqlFormat)
         {
-            return (mTableId / 10000);
-        }
-
-        public void _setTableId(uint nTableId)
-        {
-            mTableId = nTableId;
-        }
-
-        public uint _generateTableId()
-        {
-            mTableId++;
-            return mTableId;
-        }
-
-        public uint _getTableId()
-        {
-            return mTableId;
         }
 
         public StatusId()
         {
             mTableId = 0;
+            mId = 0;
         }
 
         uint mTableId;
+        long mId;
     }
 }

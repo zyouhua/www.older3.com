@@ -3,6 +3,7 @@
     public enum ErrorCode_ : uint
     {
         mSucess_,
-        mFail_
+        mFail_,
+        mAccount_,
     }
 }

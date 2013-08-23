@@ -6,11 +6,11 @@ using account.core;
 
 namespace weibo.core
 {
-    public class StatusIdInsertB : ISqlHeadstream
+    public class StatusOptionInsertB : ISqlHeadstream
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
-            nSqlFormat._serialize(ref mStatusIdBs, @"statusIdBs");
+            nSqlFormat._serialize(ref mStatusOptionBs, @"statusOptionBs");
         }
 
         public void _runWhere(ISqlFormat nSqlFormat)
@@ -19,7 +19,7 @@ namespace weibo.core
 
         public string _tableName()
         {
-            return @"statusId";
+            return @"statusOption";
         }
 
         public SqlType_ _sqlType()
@@ -27,7 +27,7 @@ namespace weibo.core
             return SqlType_.mInsertUpdate_;
         }
 
-        public void _initStatusId()
+        public void _initStatusOption()
         {
             StatusService statusService_ = __singleton<StatusService>._instance();
             AccountService accountService_ = __singleton<AccountService>._instance();
@@ -36,17 +36,17 @@ namespace weibo.core
             {
                 AccountMgr accountMgr_ = i.Value;
                 uint accountMgrId_ = i.Key;
-                StatusId statusId_ = accountMgr_._getProperty<StatusId>(statusService_._getId());
-                StatusIdB statusIdB_ = new StatusIdB(accountMgrId_, statusId_);
-                mStatusIdBs.Add(statusIdB_);
+                StatusOption statusOption_ = accountMgr_._getProperty<StatusOption>(statusService_._getId());
+                StatusOptionB statusOptionB_ = new StatusOptionB(accountMgrId_, statusOption_);
+                mStatusOptionBs.Add(statusOptionB_);
             }
         }
 
-        public StatusIdInsertB()
+        public StatusOptionInsertB()
         {
-            mStatusIdBs = new List<StatusIdB>();
+            mStatusOptionBs = new List<StatusOptionB>();
         }
 
-        List<StatusIdB> mStatusIdBs;
+        List<StatusOptionB> mStatusOptionBs;
     }
 }

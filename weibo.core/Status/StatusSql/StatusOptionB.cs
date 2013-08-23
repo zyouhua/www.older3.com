@@ -2,7 +2,7 @@
 
 namespace weibo.core
 {
-    public class StatusIdB : ISqlStream
+    public class StatusOptionB : ISqlStream
     {
         public void _runSelect(SqlFormat nSqlFormat)
         {
@@ -24,13 +24,13 @@ namespace weibo.core
             return mTableId;
         }
 
-        public StatusIdB(uint nAccountMgrId, StatusId nStatusId)
+        public StatusOptionB(uint nAccountMgrId, StatusOption nStatusOption)
         {
-            mTableId = nStatusId._getTableId();
+            mTableId = nStatusOption._getTableId();
             mAccountMgrId = nAccountMgrId;
         }
 
-        public StatusIdB()
+        public StatusOptionB()
         {
             mAccountMgrId = 0;
             mTableId = 0;

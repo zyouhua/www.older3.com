@@ -7,15 +7,24 @@ using weibo.message;
 
 namespace weibo.core
 {
-    public class StatusService : PropertyId<StatusId>
+    public class StatusService : PropertyId<StatusOption>
     {
         public StatusCreateC _createStatus(StatusCreateS nStatusCreateS)
         {
+            StatusCreateC result_ = new StatusCreateC();
             AccountService accountService_ = __singleton<AccountService>._instance();
             Account account_ = accountService_._getAccount(nStatusCreateS.m_tName, 
                 nStatusCreateS.m_tDeviceId, nStatusCreateS.m_tDeviceType);
-            StatusMgr statusMgr_ = account_._getProperty<StatusMgr>(PropertyId<StatusMgr>._classId());
-            return statusMgr_._createStatus(account_, nStatusCreateS);
+            if (null != account_)
+            {
+                StatusMgr statusMgr_ = account_._getProperty<StatusMgr>(PropertyId<StatusMgr>._classId());
+                statusMgr_._createStatus(account_, nStatusCreateS, result_);
+            }
+            else
+            {
+                result_.m_tErrorCode = ErrorCode_.mAccount_;
+            }
+            return result_;
         }
 
         public void _runPreinit()
@@ -34,42 +43,42 @@ namespace weibo.core
         {
             InitService initService_ = __singleton<InitService>._instance();
             initService_.m_tRunStart += this._runStart;
-            initService_.m_tRunSave += this._saveStatusId;
+            initService_.m_tRunSave += this._saveStatusOption;
         }
 
         void _runStart()
         {
-            this._startStatusId();
+            this._startStatusOption();
         }
 
-        void _startStatusId()
+        void _startStatusOption()
         {
-            StatusIdSelectB statusIdSelectB_ = new StatusIdSelectB();
+            StatusOptionSelectB statusOptionSelectB_ = new StatusOptionSelectB();
             SqlQuery sqlQuery_ = new SqlQuery();
-            sqlQuery_._addHeadstream(statusIdSelectB_);
+            sqlQuery_._addHeadstream(statusOptionSelectB_);
             SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
-            SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusIdSelectB_);
+            SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusOptionSelectB_);
             if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(string.Format(@"StatusService _startStatusId _runSqlQuery:{0}", sqlErrorCode_));
+                logSingleton_._logError(string.Format(@"StatusService _startStatusOption _runSqlQuery:{0}", sqlErrorCode_));
                 throw new Exception();
             }
-            statusIdSelectB_._initStatusId();
+            statusOptionSelectB_._initStatusOption();
         }
 
-        void _saveStatusId()
+        void _saveStatusOption()
         {
-            StatusIdInsertB statusIdInsertB_ = new StatusIdInsertB();
-            statusIdInsertB_._initStatusId();
+            StatusOptionInsertB statusOptionInsertB_ = new StatusOptionInsertB();
+            statusOptionInsertB_._initStatusOption();
             SqlQuery sqlQuery_ = new SqlQuery();
-            sqlQuery_._addHeadstream(statusIdInsertB_);
+            sqlQuery_._addHeadstream(statusOptionInsertB_);
             SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
             SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_);
             if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(string.Format(@"StatusService _saveStatusId _runSqlQuery:{0}", sqlErrorCode_));
+                logSingleton_._logError(string.Format(@"StatusService _saveStatusOption _runSqlQuery:{0}", sqlErrorCode_));
                 throw new Exception();
             }
         }

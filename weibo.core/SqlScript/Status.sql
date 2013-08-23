@@ -1,8 +1,8 @@
 ﻿/**
- *		作用：		创建statusId表
- * 		表名：		statusId
+ *		作用：		创建statusOption表
+ * 		表名：		statusOption
  */
- CREATE TABLE `statusId` (
+ CREATE TABLE `statusOption` (
 	`accountMgrId` int(10) unsigned NOT NULL,
 	`tableId` int(10) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY  (`accountMgrId`)

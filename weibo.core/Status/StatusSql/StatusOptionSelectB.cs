@@ -6,11 +6,11 @@ using account.core;
 
 namespace weibo.core
 {
-    public class StatusIdSelectB : ISqlHeadstream
+    public class StatusOptionSelectB : ISqlHeadstream
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
-            nSqlFormat._serialize(ref mStatusIdBs, @"statusIdBs");
+            nSqlFormat._serialize(ref mStatusOptionBs, @"statusOptionBs");
         }
 
         public void _runWhere(ISqlFormat nSqlFormat)
@@ -19,7 +19,7 @@ namespace weibo.core
 
         public string _tableName()
         {
-            return @"statusId";
+            return @"statusOption";
         }
 
         public SqlType_ _sqlType()
@@ -27,34 +27,34 @@ namespace weibo.core
             return SqlType_.mSelect_;
         }
 
-        public void _initStatusId()
+        public void _initStatusOption()
         {
             StatusService statusService_ = __singleton<StatusService>._instance();
             AccountService accountService_ = __singleton<AccountService>._instance();
             IDictionary<uint, AccountMgr> accountMgrs_ = accountService_._getAccountMgrs();
-            foreach (StatusIdB i in mStatusIdBs)
+            foreach (StatusOptionB i in mStatusOptionBs)
             {
                 uint accountMgrId_ = i._getAccountMgrId();
                 if (accountMgrs_.ContainsKey(accountMgrId_))
                 {
                     AccountMgr accountMgr_ = accountMgrs_[accountMgrId_];
-                    StatusId statusId_ = accountMgr_._getProperty<StatusId>(statusService_._getId());
-                    statusId_._setTableId(i._getTableId());
+                    StatusOption statusOption_ = accountMgr_._getProperty<StatusOption>(statusService_._getId());
+                    statusOption_._setTableId(i._getTableId());
                 }
                 else
                 {
                     LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                    logSingleton_._logError(string.Format(@"StatusIdSelectB _initStatusId:{0}", accountMgrId_));
+                    logSingleton_._logError(string.Format(@"StatusOptionSelectB _initStatusOption:{0}", accountMgrId_));
                     throw new Exception();
                 }
             }
         }
 
-        public StatusIdSelectB()
+        public StatusOptionSelectB()
         {
-            mStatusIdBs = new List<StatusIdB>();
+            mStatusOptionBs = new List<StatusOptionB>();
         }
 
-        List<StatusIdB> mStatusIdBs;
+        List<StatusOptionB> mStatusOptionBs;
     }
 }

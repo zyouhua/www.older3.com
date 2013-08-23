@@ -41,11 +41,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugin\Plugin.cs" />
-    <Compile Include="Status\StatusSql\StatusTableCreateB.cs" />
-    <Compile Include="Status\StatusSql\StatusIdInsertB.cs" />
-    <Compile Include="Status\StatusSql\StatusIdB.cs" />
-    <Compile Include="Status\StatusSql\StatusIdSelectB.cs" />
     <Compile Include="Status\StatusService\StatusId.cs" />
+    <Compile Include="Status\StatusService\Status.cs" />
+    <Compile Include="Status\StatusSql\StatusTableCreateB.cs" />
+    <Compile Include="Status\StatusSql\StatusOptionInsertB.cs" />
+    <Compile Include="Status\StatusSql\StatusOptionB.cs" />
+    <Compile Include="Status\StatusSql\StatusOptionSelectB.cs" />
+    <Compile Include="Status\StatusService\StatusOption.cs" />
     <Compile Include="Status\StatusSql\StatusCreateB.cs" />
     <Compile Include="Status\StatusService\StatusService.cs" />
     <Compile Include="Status\StatusService\StatusMgr.cs" />
