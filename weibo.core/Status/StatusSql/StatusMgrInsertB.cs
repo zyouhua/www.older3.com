@@ -11,6 +11,7 @@ namespace weibo.core
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
+            nSqlFormat._serialize(ref mAccountId, @"accountId");
             nSqlFormat._serialize(ref mBytes, @"statusIds");
         }
 

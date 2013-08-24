@@ -8,6 +8,7 @@ namespace platform
     {
         static readonly string mValueCharacter = @"'";
         static readonly string mFieldCharacter = @"`";
+        static readonly string mUpdateCharacter = @"@";
 
         public void _serialize<__t>(ref List<__t> nValue, string nName) where __t : ISqlStream
         {
@@ -196,6 +197,25 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsertE_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += @",";
+                }
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += @"=VALUES(";
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += @")";
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
             else if ((SqlDeal_.mPrimary_ == mSqlDeal) && ((nSqlFieldId & SqlFieldId_.mPrimary_) > 0))
             {
                 if (false == mBeg)
@@ -245,7 +265,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " TINYINT(1)";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -269,6 +289,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue,SqlField_.mBool_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -284,7 +319,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10)";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -308,6 +343,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -323,7 +373,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10) UNSIGNED";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -346,6 +396,21 @@ namespace platform
                 {
                     mBeg = false;
                 }
+            }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
             }
             else
             {
@@ -398,18 +463,20 @@ namespace platform
                 {
                     mValue += ",";
                 }
-                mValue += mFieldCharacter;
-                mValue += nName;
-                mValue += mFieldCharacter;
+                mValue += mUpdateCharacter;
+                string name_ = string.Format(@"{0}_i", nName);
+                mValue += name_;
                 mValue += ",";
-                mValue += mFieldCharacter;
-                mValue += string.Format(@"{0}_i", nName);
-                mValue += mFieldCharacter;
+                mValue += mUpdateCharacter;
+                mValue += nName;
                 if (mBeg)
                 {
                     mBeg = false;
                 }
-                mFields[nName] = nValue;
+                SqlParameter sqlParameter_ = new SqlParameter(name_, nValue.GetLength(0), SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
+                sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mBytes_);
+                mFields.Add(sqlParameter_);
             }
             else if (SqlDeal_.mUpdateInsertE_ == mSqlDeal)
             {
@@ -453,7 +520,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10)";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -476,6 +543,21 @@ namespace platform
                 {
                     mBeg = false;
                 }
+            }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
             }
             else
             {
@@ -492,7 +574,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10) UNSIGNED";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -516,6 +598,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -531,7 +628,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10)";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -555,6 +652,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI32_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -570,7 +682,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " INT(10) UNSIGNED";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -594,6 +706,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mU32_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -609,7 +736,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " BIGINT";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -633,6 +760,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mI64_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -648,7 +790,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " BIGINT UNSIGNED";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -672,6 +814,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mU64_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -687,7 +844,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " VARCHAR(255)";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -711,6 +868,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mString_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -726,7 +898,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " FLOAT";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -750,6 +922,21 @@ namespace platform
                     mBeg = false;
                 }
             }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mFloat_);
+                mFields.Add(sqlParameter_);
+            }
             else
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
@@ -765,7 +952,7 @@ namespace platform
                     mValue += ",";
                 }
                 mValue += mFieldCharacter;
-                mValue += Convert.ToString(nName);
+                mValue += nName;
                 mValue += mFieldCharacter;
                 mValue += " DOUBLE";
                 if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
@@ -788,6 +975,21 @@ namespace platform
                 {
                     mBeg = false;
                 }
+            }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mUpdateCharacter;
+                mValue += nName;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                SqlParameter sqlParameter_ = new SqlParameter(nName, nValue, SqlField_.mDouble_);
+                mFields.Add(sqlParameter_);
             }
             else
             {
@@ -963,7 +1165,7 @@ namespace platform
             mSqlDeal = SqlDeal_.mNone_;
         }
 
-        public IDictionary<string, object> _getFields()
+        public IList<SqlParameter> _getFields()
         {
             return mFields;
         }
@@ -975,7 +1177,7 @@ namespace platform
 
         public SqlFormat()
         {
-            mFields = new Dictionary<string, object>();
+            mFields = new List<SqlParameter>();
             mUpdate = new List<string>();
             mSqlDeal = SqlDeal_.mNone_;
             mValue = null;
@@ -984,7 +1186,7 @@ namespace platform
             mEnd = false;
         }
 
-        Dictionary<string, object> mFields;
+        List<SqlParameter> mFields;
         List<string> mUpdate;
         SqlDeal_ mSqlDeal;
         string mValue;

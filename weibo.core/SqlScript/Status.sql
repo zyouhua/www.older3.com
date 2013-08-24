@@ -23,9 +23,9 @@ BEGIN
 	WHILE i < tableCount
 	DO
 		SET @STMT := CONCAT("CREATE  TABLE `statusMgr_", FORMAT(i, 0), "` (
-					`accountId` INT(10) UNSIGNED NOT NULL ,
+					`accountId` INT(10) UNSIGNED NOT NULL,
+					`statusIds_i` INT(10) NULL,
 					`statusIds` BLOB NOT NULL,
-					`statusIds_i` INT(10) ZEROFILL NOT NULL,
 					PRIMARY KEY (`accountId`) )
 					ENGINE = MYISAM  DEFAULT CHARSET=utf8;");
 		PREPARE STMT FROM @STMT;

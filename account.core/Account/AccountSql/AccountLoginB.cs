@@ -22,11 +22,18 @@ namespace account.core
         public ErrorCode_ _checkPassward(string nPassward)
         {
             ErrorCode_ result_ = ErrorCode_.mSucess_;
-            uint loginPassward_ = GenerateId._runPasswardId(nPassward);
-            uint hashPassward_ = GenerateId._runPasswardId(mPassward);
-            if (loginPassward_ != hashPassward_)
+            if ( (null == nPassward) || (null == mNickName) || (0 == mTicks) )
             {
-                result_ = ErrorCode_.mPassward_;
+                result_ = ErrorCode_.mNoAccount_;
+            }
+            if (ErrorCode_.mSucess_ == result_)
+            {
+                uint loginPassward_ = GenerateId._runPasswardId(nPassward);
+                uint hashPassward_ = GenerateId._runPasswardId(mPassward);
+                if (loginPassward_ != hashPassward_)
+                {
+                    result_ = ErrorCode_.mPassward_;
+                }
             }
             return result_;
         }

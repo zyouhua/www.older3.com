@@ -14,6 +14,7 @@
         mU64_,
         mString_,
         mFloat_,
-        mDouble_
+        mDouble_,
+        mBytes_
     }
 }

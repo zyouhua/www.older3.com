@@ -19,10 +19,59 @@ namespace platform
                 MySqlCommand mySqlCommand_ = new MySqlCommand();
                 mySqlCommand_.Connection = mySqlConnection_;
                 mySqlCommand_.CommandText = sqlCommand_;
-                IDictionary<string, object> fields_ = nSqlQuery._getFields();
-                foreach (KeyValuePair<string, object> i in fields_)
+                IList<SqlParameter> fields_ = nSqlQuery._getFields();
+                foreach (SqlParameter i in fields_)
                 {
-                    mySqlCommand_.Parameters.AddWithValue(i.Key, i.Value);
+                    string name_ = i._getName();
+                    SqlField_ sqlField_ = i._getSqlField();
+                    if (SqlField_.mBool_ == sqlField_)
+                    {
+                        bool value_ = i._getValue<bool>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mI32_ == sqlField_)
+                    {
+                        int value_ = i._getValue<int>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mU32_ == sqlField_)
+                    {
+                        uint value_ = i._getValue<uint>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mI64_ == sqlField_)
+                    {
+                        long value_ = i._getValue<long>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mU64_ == sqlField_)
+                    {
+                        ulong value_ = i._getValue<ulong>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mString_ == sqlField_)
+                    {
+                        string value_ = i._getValue<string>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mFloat_ == sqlField_)
+                    {
+                        float value_ = i._getValue<float>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mDouble_ == sqlField_)
+                    {
+                        double value_ = i._getValue<double>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else if (SqlField_.mBytes_ == sqlField_)
+                    {
+                        byte[] value_ = i._getValue<byte[]>();
+                        mySqlCommand_.Parameters.AddWithValue(name_, value_);
+                    }
+                    else
+                    {
+                    }
                 }
                 mySqlCommand_.ExecuteNonQuery();
             }
