@@ -18,7 +18,8 @@ namespace weibo.core
                 nStatusCreateS.m_tDeviceId, nStatusCreateS.m_tDeviceType);
             if (null != account_)
             {
-                StatusMgr statusMgr_ = account_._getProperty<StatusMgr>(PropertyId<StatusMgr>._classId());
+                uint propertyId_ = PropertyId<StatusMgr>._classId();
+                StatusMgr statusMgr_ = account_._getProperty<StatusMgr>(propertyId_);
                 statusMgr_._createStatus(account_, nStatusCreateS, result_);
             }
             else
@@ -26,6 +27,52 @@ namespace weibo.core
                 result_.m_tErrorCode = ErrorCode_.mAccount_;
             }
             return result_;
+        }
+
+        public StatusGetC _getStatus(StatusGetS nStatusGetS)
+        {
+            StatusGetC result_ = new StatusGetC();
+            AccountService accountService_ = __singleton<AccountService>._instance();
+            Account account_ = accountService_._getAccount(nStatusGetS.m_tName,
+                nStatusGetS.m_tDeviceId, nStatusGetS.m_tDeviceType);
+            if (null == account_)
+            {
+                result_.m_tErrorCode = ErrorCode_.mAccount_;
+                return result_;
+            }
+            if ( (nStatusGetS.m_tPlayer == nStatusGetS.m_tName) || (null == nStatusGetS.m_tPlayer) )
+            {
+                this._getStatus(result_, account_, nStatusGetS.m_tTicks);
+            }
+            else
+            {
+                this._getStatus(result_, nStatusGetS.m_tPlayer, nStatusGetS.m_tTicks, nStatusGetS.m_tServer);
+            }
+            return result_;
+        }
+
+        void _getStatus(StatusGetC nStatusGetC, Account nAccount, long nTicks)
+        {
+            uint propertyId_ = PropertyId<StatusMgr>._classId();
+            StatusMgr statusMgr_ = nAccount._getProperty<StatusMgr>(propertyId_);
+            if (statusMgr_._getTicks() == nTicks)
+            {
+                nStatusGetC.m_tErrorCode = ErrorCode_.mSucessTicks_;
+                return;
+            }
+            statusMgr_._getStatus(nStatusGetC, nTicks);
+        }
+
+        void _getStatus(StatusGetC nStatusGetC, string nName, long nTicks, uint nServer)
+        {
+            SettingSingleton settingSingleton_ = __singleton<SettingSingleton>._instance();
+            if (settingSingleton_._getServerId() != nServer)
+            {
+                return;
+            }
+            AccountService accountService_ = __singleton<AccountService>._instance();
+            Account account_ = accountService_._getAccount(nName,
+                nStatusGetS.m_tDeviceId, nStatusGetS.m_tDeviceType);
         }
 
         public void _runPreinit()
@@ -38,6 +85,7 @@ namespace weibo.core
         {
             StatusSink statusSink_ = __singleton<StatusSink>._instance();
             statusSink_.m_tStatusCreate += _createStatus;
+            statusSink_.m_tStatusGet += _getStatus;
         }
 
         void _preinitInit()

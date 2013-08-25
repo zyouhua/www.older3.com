@@ -24,6 +24,7 @@ BEGIN
 	DO
 		SET @STMT := CONCAT("CREATE  TABLE `statusMgr_", FORMAT(i, 0), "` (
 					`accountId` INT(10) UNSIGNED NOT NULL,
+					`ticks` BIGINT NULL,
 					`statusIds_i` INT(10) NULL,
 					`statusIds` BLOB NOT NULL,
 					PRIMARY KEY (`accountId`) )

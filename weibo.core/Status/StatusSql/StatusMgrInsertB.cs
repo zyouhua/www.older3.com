@@ -12,6 +12,7 @@ namespace weibo.core
         public void _runSelect(ISqlFormat nSqlFormat)
         {
             nSqlFormat._serialize(ref mAccountId, @"accountId");
+            nSqlFormat._serialize(ref mTicks, @"ticks");
             nSqlFormat._serialize(ref mBytes, @"statusIds");
         }
 
@@ -35,11 +36,13 @@ namespace weibo.core
             AccountMgr accountMgr_ = account_._getAccountMgr();
             mAccountMgrId = accountMgr_._getId();
             mAccountId = account_._getAccountId();
+            mTicks = account_._getTicks();
             mBytes = Encoding.UTF8.GetBytes(nStatusMgr._getStrStatusIds());
         }
 
         uint mAccountMgrId;
         uint mAccountId;
+        long mTicks;
         byte[] mBytes;
     }
 }

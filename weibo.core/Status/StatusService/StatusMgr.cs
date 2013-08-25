@@ -36,8 +36,17 @@ namespace weibo.core
                 long statusId_ = statusCreateB_._statusId();
                 nStatusCreateC.m_tErrorCode = ErrorCode_.mSucess_;
                 nStatusCreateC.m_tStatusId = statusId_;
-                nStatusCreateC.m_tTicks = statusCreateB_._getTicks();
+                mTicks = statusCreateB_._getTicks();
+                nStatusCreateC.m_tTicks = mTicks;
                 mStatusIds[statusId_] = new StatusId(tableId_, statusId_);
+            }
+        }
+
+        public void _getStatus(StatusGetC nStatusGetC, long nTicks)
+        {
+            foreach (KeyValuePair<long, StatusId> i in mStatusIds)
+            {
+
             }
         }
 
@@ -112,6 +121,11 @@ namespace weibo.core
             return result_;
         }
 
+        public long _getTicks()
+        {
+            return mTicks;
+        }
+
         public IDictionary<long, StatusId> _getStatusIds()
         {
             return mStatusIds;
@@ -127,8 +141,10 @@ namespace weibo.core
         public StatusMgr()
         {
             mStatusIds = new Dictionary<long, StatusId>();
+            mTicks = 0;
         }
 
         Dictionary<long, StatusId> mStatusIds;
+        long mTicks;
     }
 }
