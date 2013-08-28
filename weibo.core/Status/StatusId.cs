@@ -8,5 +8,10 @@ namespace weibo.core
         {
             return new StatusMgr();
         }
+
+        public StatusId()
+        {
+            this._setId(GenerateId._runCommon(@"weibo.core.StatusId"));
+        }
     }
 }

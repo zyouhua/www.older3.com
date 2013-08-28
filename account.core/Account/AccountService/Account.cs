@@ -34,7 +34,7 @@ namespace account.core
 
         public void _addDeviceType(uint nDeviceType)
         {
-            ulong id_ = GenerateId._runId(@"account");
+            uint id_ = GenerateId._runId(@"account");
             DeviceStatus deviceStatus_ = new DeviceStatus(id_, nDeviceType);
             mDeviceStatus[nDeviceType] = deviceStatus_;
         }

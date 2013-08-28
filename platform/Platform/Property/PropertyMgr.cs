@@ -16,7 +16,7 @@ namespace platform
             return result_;
         }
 
-        public void _addProperty<__t>(__t nT, PropertyId nPropertyId) where __t : Property
+        public void _addProperty(Property nProperty, PropertyId nPropertyId)
         {
             uint propertyId_ = nPropertyId._getId();
             if (mPropertys.ContainsKey(propertyId_))
@@ -25,7 +25,8 @@ namespace platform
                 logSingleton_._logError(@"PropertyMgr _AddProperty ContainsKey");
                 throw new Exception();
             }
-            mPropertys[propertyId_] = nT;
+            nProperty._setPropertyMgr(this);
+            mPropertys[propertyId_] = nProperty;
         }
 
         public PropertyMgr()

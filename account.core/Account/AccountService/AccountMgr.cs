@@ -69,8 +69,8 @@ namespace account.core
             nAccountLoginC.m_tNickName = nAccountLoginB._getNick();
             nAccountLoginC.m_tTicks = nAccountLoginB._getTicks();
             DeviceStatus deviceStatus_ = account_._getDeviceStatus(nDeviceType);
-            nAccountLoginC.m_tDeviceStatusId = deviceStatus_._getId();
-            nAccountLoginC.m_tDeviceStatusType = deviceStatus_._getType();
+            nAccountLoginC.m_tDeviceId = deviceStatus_._getId();
+            nAccountLoginC.m_tDeviceType = deviceStatus_._getType();
         }
 
         Account _loginAccount(AccountLoginB nAccountLoginB, uint nDeviceType)

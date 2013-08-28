@@ -6,13 +6,27 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Status\StatusMgr.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="weibo.core.StatusId" Collapsed="true">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Status\StatusId.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="weibo.core.Startup" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Startup\Startup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="weibo.core.StatusService">
+    <Position X="2.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Status\StatusService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="微软雅黑" Size="9" />

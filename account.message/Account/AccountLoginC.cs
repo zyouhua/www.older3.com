@@ -9,7 +9,7 @@ namespace account.message
         public string m_tNickName { get; set; }
         public uint m_tServerId { get; set; }
         public long m_tTicks { get; set; }
-        public ulong m_tDeviceStatusId { get; set; }
-        public uint m_tDeviceStatusType { get; set; }
+        public uint m_tDeviceId { get; set; }
+        public uint m_tDeviceType { get; set; }
     }
 }

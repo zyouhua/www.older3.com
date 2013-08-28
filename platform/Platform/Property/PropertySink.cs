@@ -5,6 +5,16 @@ namespace platform
 {
     public class PropertySink
     {
+        public void _runCreate(PropertyMgr nPropertyMgr)
+        {
+            foreach (KeyValuePair<uint, PropertyId> i in mCreates)
+            {
+                PropertyId propertyId_ = i.Value;
+                Property property_ = propertyId_._createProperty();
+                nPropertyMgr._addProperty(property_, propertyId_);
+            }
+        }
+
         public void _registerCreate(PropertyId nPropertyId)
         {
             uint propertyId_ = nPropertyId._getId();
