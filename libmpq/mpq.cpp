@@ -22,7 +22,6 @@ unsigned long hash_string(const char * nKey, unsigned long nOffset)
 
 	unsigned long ch;
 
-	/* prepare seeds. */
 	while (*nKey != 0) {
 		ch    = toupper(*nKey++);
 		seed1 = crypt_buf[nOffset + ch] ^ (seed1 + seed2);
@@ -95,35 +94,29 @@ void read_file(mpq_file * nFile, const char * nKey, char ** nBuf, unsigned int *
 			break;
 		}
 	}
-// 	static char buf[1024 * 1024];
-// 	memset(buf, 0, sizeof(buf));
-	(*nBuf) = new char[*nSize];
+ 	static char buf[1024 * 1024];
+ 	memset(buf, 0, sizeof(buf));
 	fseek(nFile->mFile, beg, SEEK_SET);
-	fread(*nBuf, 1, end - 1, nFile->mFile);
-	(*nBuf)[end - 1] = 0;
-// 	fread(buf, 1, end, nFile->mFile);
-// 	(*nBuf) = new char[*nSize];
-// 	decompress_bzip2(buf, end, *nBuf, nSize);
+	fread(buf, 1, end, nFile->mFile);
+	(*nBuf) = new char[*nSize];
+ 	decompress_bzip2(buf, end, *nBuf, nSize);
 }
 
 static void write_buf(mpq_file * nFile, const char * nKey, char * nBuf, unsigned int nSize)
 {
-// 	static char buf[1024 * 1024];
-// 	memset(buf, 0, sizeof(buf));
-// 	unsigned int size = 1024 * 1024;
-// 	compress_bzip2(nBuf, nSize, buf, &size);
+	static char buf[1024 * 1024];
+	memset(buf, 0, sizeof(buf));
+	unsigned int size = 1024 * 1024;
+	compress_bzip2(nBuf, nSize, buf, &size);
 	fseek(nFile->mFile, nFile->mPos, SEEK_SET);
 	hash_table * hashtable = &(nFile->mHashTable[nFile->mIndex]);
 	hashtable->mBeg = nFile->mPos;
-//	hashtable->mEnd = size;
-	hashtable->mEnd = nSize;
+	hashtable->mEnd = size;
 	hashtable->mSize = nSize;
 	hashtable->mHash = hash_string(nKey, 0x100);
-//	fwrite(buf, 1, size, nFile->mFile);
-	fwrite(nBuf, 1, nSize, nFile->mFile);
+	fwrite(buf, 1, size, nFile->mFile);
 	nFile->mIndex++;
-//	nFile->mPos += size;
-	nFile->mPos += nSize;
+	nFile->mPos += size;
 }
 
 void write_file(mpq_file * nFile, const char * nPath, const char * nKey)
@@ -131,13 +124,13 @@ void write_file(mpq_file * nFile, const char * nPath, const char * nKey)
 	FILE * file = nullptr;
 	fopen_s(&file, nPath, "rb");
 	fseek(file, 0, SEEK_END);
-	long len = ftell(file) + 2;
+	long len = ftell(file);
 	fseek(file, 0, SEEK_SET);
 	static char buf[1024 * 1024];
 	memset(buf, 0, sizeof(buf));
-	fread(buf, 1, len - 1, file);
+	fread(buf, 1, len, file);
 	fclose(file);
-	buf[len - 1] = 0;
+	buf[len + 1] = 0;
 	write_buf(nFile, nKey, buf, len);
 }
 

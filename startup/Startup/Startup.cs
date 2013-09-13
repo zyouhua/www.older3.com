@@ -22,6 +22,9 @@ namespace startup
             string systemPath_ = HostingEnvironment.MapPath(@"~");
             systemPath_ = Path.Combine(systemPath_, @"../../bin/home/");
             mpq_._runInit(systemPath_);
+#else
+            string systemPath_ = HostingEnvironment.MapPath(@"~");
+            mpq_._runInit(systemPath_);
 #endif
             StartupSingleton startupSingleton_ = __singleton<StartupSingleton>._instance();
             startupSingleton_._runInit();

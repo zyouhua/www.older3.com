@@ -11,10 +11,10 @@ namespace package
     {
         static void Main(string[] args)
         {
-            uint count = _countDirectory(args[0]);
+            uint count = _countDirectory(args[1]);
             Mpq mpq_ = __singleton<Mpq>._instance();
             mpq_._runOpen(args[0], count);
-            _runDirectory(args[0]);
+            _runDirectory(args[1]);
             mpq_._runSave();
         }
 
