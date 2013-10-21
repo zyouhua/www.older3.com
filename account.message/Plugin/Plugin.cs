@@ -2,9 +2,9 @@
 
 namespace account.message
 {
-    public class Startup : IStartup
+    public class Plugin : IPlugin
     {
-        public void _runStart()
+        public void _runLoad()
         {
         }
     }

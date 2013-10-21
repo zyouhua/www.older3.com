@@ -3,11 +3,11 @@
 using startup;
 using platform;
 
-namespace account.ui
+namespace weibo.ui
 {
-    public class Startup : IStartup
+    public class Plugin : IPlugin
     {
-        public void _runStart()
+        public void _runLoad()
         {
             Assembly assembly = typeof(Startup).Assembly;
             MvcEngineSingleton mvcEngineSingleton_ = __singleton<MvcEngineSingleton>._instance();

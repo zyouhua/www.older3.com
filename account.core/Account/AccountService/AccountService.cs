@@ -52,6 +52,11 @@ namespace account.core
             return accountMgr_._getAccount(nAccountName, nDeviceId, nDeviceType);
         }
 
+        public IDictionary<uint, AccountMgr> _getAccountMgrs()
+        {
+            return mAccountMgrs;
+        }
+
         public ErrorCode_ _checkServerId(uint nServerId)
         {
             SettingSingleton settingSingleton_ = __singleton<SettingSingleton>._instance();
@@ -59,28 +64,39 @@ namespace account.core
             return (serverId_ == nServerId) ? ErrorCode_.mSucess_ : ErrorCode_.mServerId_;
         }
 
-        public void _runStart()
+        public void _runPreinit()
         {
-            this._startAccountMgr();
-            this._startSink();
+            this._preinitSink();
+            this._preinitInit();
         }
 
-        void _startAccountMgr()
+        void _preinitInit()
+        {
+            InitService initService_ = __singleton<InitService>._instance();
+            initService_.m_tRunInit += this._runInit;
+        }
+
+        void _runInit()
+        {
+            this._initAccountMgr();
+        }
+
+        void _initAccountMgr()
         {
             string accountConfigUrl_ = @"rid://account.core.accountConfig";
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
             AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
             platformSingleton_._loadHeadstream<AccountConfig>(accountConfig_, accountConfigUrl_);
-
             uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
             for (uint i = 0; i < accountMgrCount_; ++i)
             {
                 AccountMgr accountMgr_ = new AccountMgr(i);
+                this._runCreate(accountMgr_);
                 mAccountMgrs[i] = accountMgr_;
             }
         }
 
-        void _startSink()
+        void _preinitSink()
         {
             AccountSink accountSink_ = __singleton<AccountSink>._instance();
             accountSink_.m_tAccountCreate += _createAccount;

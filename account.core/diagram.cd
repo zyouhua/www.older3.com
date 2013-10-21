@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="account.core.GetAccount">
-    <Position X="2.25" Y="0.75" Width="1.5" />
+  <Class Name="account.core.AccountCreator" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAIAAAAAAAAAAAACAAAAAAIAQAAAAAAAAEAAAA=</HashCode>
-      <FileName>Account\AccountService\GetAccount.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account\AccountService\AccountCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="微软雅黑" Size="9" />

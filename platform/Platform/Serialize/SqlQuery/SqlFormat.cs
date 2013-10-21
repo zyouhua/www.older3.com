@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace platform
@@ -11,10 +12,14 @@ namespace platform
         {
             if (SqlDeal_.mSelect_ == mSqlDeal)
             {
-                foreach (__t i in nValue)
+                if (nValue.Count > 0)
                 {
-                    i._runSelect(this);
-                    break;
+                    nValue[0]._runSelect(this);
+                }
+                else
+                {
+                    __t t_ = Activator.CreateInstance<__t>();
+                    t_._runSelect(this);
                 }
             }
             else if (SqlDeal_.mInsert_ == mSqlDeal)
@@ -29,6 +34,16 @@ namespace platform
                     }
                     i._runSelect(this);
                     temp_ = true;
+                }
+            }
+            else if (SqlDeal_.mInsertUpdate_ == mSqlDeal)
+            {
+                mValue += "ON DUPLICATE KEY UPDATE";
+                mBeg = true;
+                foreach (__t i in nValue)
+                {
+                    i._runSelect(this);
+                    break;
                 }
             }
             else if (SqlDeal_.mUpdate_ == mSqlDeal)
@@ -155,6 +170,21 @@ namespace platform
             {
                 mUpdate.Add(nName);
             }
+            else if (SqlDeal_.mInsertUpdate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += @",";
+                }
+                mValue += nName;
+                mValue += @"=VALUES(";
+                mValue += nName;
+                mValue += @")";
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
             else if (SqlDeal_.mUpdateWhen_ == mSqlDeal)
             {
                 mValue += mCharacter;
@@ -260,6 +290,10 @@ namespace platform
             {
                 this._runUpdate(nSqlStream);
             }
+            else if (SqlType_.mInsertUpdate_ == sqlType_)
+            {
+                this._runInsertUpdate(nSqlStream);
+            }
             else
             {
             }
@@ -317,6 +351,26 @@ namespace platform
             nSqlHeadstream._runSelect(this);
             mSqlDeal = SqlDeal_.mWhere_;
             mValue += @" ";
+            nSqlHeadstream._runWhere(this);
+            mSqlDeal = SqlDeal_.mNone_;
+        }
+
+        public void _runInsertUpdate(ISqlHeadstream nSqlHeadstream)
+        {
+            mValue += @"INSERT INTO ";
+            mValue += nSqlHeadstream._tableName();
+            mValue += @" (";
+            mBeg = true;
+            mSqlDeal = SqlDeal_.mSelect_;
+            nSqlHeadstream._runSelect(this);
+            mValue += @") VALUES (";
+            mBeg = true;
+            mSqlDeal = SqlDeal_.mInsert_;
+            nSqlHeadstream._runSelect(this);
+            mValue += @") ";
+            mSqlDeal = SqlDeal_.mInsertUpdate_;
+            nSqlHeadstream._runSelect(this);
+            mSqlDeal = SqlDeal_.mWhere_;
             nSqlHeadstream._runWhere(this);
             mSqlDeal = SqlDeal_.mNone_;
         }

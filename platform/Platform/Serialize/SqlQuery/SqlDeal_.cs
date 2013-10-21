@@ -10,5 +10,6 @@
         mUpdateSelect_,
         mUpdateWhen_,
         mUpdateThen_,
+        mInsertUpdate_,
     }
 }

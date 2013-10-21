@@ -559,14 +559,14 @@ namespace platform
             }
         }
 
-        public void _startApp(string nAppUrl)
+        public void _loadPlugin(string nAppUrl)
         {
-            AppUrls appUrls_ = this._findHeadstream<AppUrls>(nAppUrl);
-            IList<string> urls_ = appUrls_._getAppUrls();
-            foreach (string i in urls_)
+            PluginUrls pluginUrls_ = this._findHeadstream<PluginUrls>(nAppUrl);
+            IList<string> plugins_ = pluginUrls_._getPlugins();
+            foreach (string i in plugins_)
             {
-                IStartup startup_ = this._findInterface<IStartup>(i);
-                startup_._runStart();
+                IPlugin plugin_ = this._findInterface<IPlugin>(i);
+                plugin_._runLoad();
             }
         }
     }

@@ -32,7 +32,7 @@ namespace platform
             if (mPropertys.ContainsKey(propertyId_))
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(@"PropertyMgr _AddProperty ContainsKey");
+                logSingleton_._logError(string.Format(@"PropertyMgr _AddProperty ContainsKey:{0}", propertyId_));
                 throw new Exception();
             }
             nProperty._setPropertyMgr(this);

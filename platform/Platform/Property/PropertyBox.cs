@@ -1,6 +1,6 @@
 ﻿namespace platform
 {
-    public class PropertyId<__t> : IPropertyId where __t : Property, new()
+    public class PropertyBox<__t> : PropertySink, IPropertyId where __t : Property, new()
     {
         public Property _createProperty()
         {
@@ -18,7 +18,7 @@
             return _classId();
         }
 
-        public PropertyId()
+        public PropertyBox()
         {
         }
     }

@@ -47,8 +47,8 @@ namespace account.core
             result_._setAccountId(mAccountId);
             result_._setNick(mNickName);
             result_._setTicks(DateTime.Now.Ticks);
-            AccountService accountService_ = __singleton<AccountService>._instance();
-            accountService_._runCreate(result_);
+            AccountCreator accountCreator_ = __singleton<AccountCreator>._instance();
+            accountCreator_._runCreate(result_);
             return result_;
         }
 

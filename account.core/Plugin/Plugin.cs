@@ -2,9 +2,9 @@
 
 namespace account.core
 {
-    public class Startup : IStartup
+    public class Plugin : IPlugin
     {
-        public void _runStart()
+        public void _runLoad()
         {
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
 
@@ -13,10 +13,10 @@ namespace account.core
             platformSingleton_._loadHeadstream<SqlSingleton>(sqlSingleton_, sqlUrl_);
 
             AccountService accountService_ = __singleton<AccountService>._instance();
-            accountService_._runStart();
+            accountService_._runPreinit();
 
             DeviceService deviceService_ = __singleton<DeviceService>._instance();
-            deviceService_._runStart();
+            deviceService_._runPreinit();
         }
     }
 }

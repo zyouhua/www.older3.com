@@ -5,6 +5,7 @@
         mSelect_,
         mInsert_,
         mUpdate_,
-        mDelete_
+        mDelete_,
+        mInsertUpdate_
     }
 }

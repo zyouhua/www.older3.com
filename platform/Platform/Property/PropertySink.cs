@@ -31,7 +31,7 @@ namespace platform
             if (mCreates.ContainsKey(propertyId_))
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(@"PropertySink _registerInit ContainsKey");
+                logSingleton_._logError(string.Format(@"PropertySink _registerInit ContainsKey:{0}", propertyId_));
                 throw new Exception();
             }
             mCreates[propertyId_] = nPropertyId;

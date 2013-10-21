@@ -16,7 +16,7 @@ namespace platform
             return @"setting";
         }
 
-        public void _runInit(string nPath = null)
+        public void _runConfig(string nPath = null)
         {
             if (null == nPath)
             {

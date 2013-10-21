@@ -77,7 +77,7 @@ namespace platform
                 mMissions.Add(mission_);
             }
             LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-            logSingleton_._logError(@"MissionPool mMissions size: " + Convert.ToString(mMissions.Count));
+            logSingleton_._logError(string.Format(@"MissionPool mMissions size:{0}",mMissions.Count));
         }
 
         public void _runInit(int nSize = 5)

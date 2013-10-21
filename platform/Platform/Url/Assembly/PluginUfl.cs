@@ -10,10 +10,10 @@
 
         private void _runPlugin()
         {
-            IStartup start_ = base._findClass<IStartup>(@"Startup");
+            IPlugin start_ = base._findClass<IPlugin>(@"Startup");
             if (null != start_)
             {
-                start_._runStart();
+                start_._runLoad();
             }
         }
     }

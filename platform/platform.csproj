@@ -47,7 +47,7 @@
     <Compile Include="Platform\Serialize\SqlQuery\ISqlFormat.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\ISqlStream.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\ISqlHeadstream.cs" />
-    <Compile Include="Platform\AppUrls\AppUrls.cs" />
+    <Compile Include="Platform\PluginUrls\PluginUrls.cs" />
     <Compile Include="Platform\Device\DeviceService.cs" />
     <Compile Include="Platform\Device\DeviceStatus.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlErrorCode_.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Platform\Serialize\Url\Udl\Udl.cs" />
     <Compile Include="Platform\Serialize\Url\Udl\UdlHeadstream.cs" />
     <Compile Include="Platform\Setting\SettingSingleton.cs" />
-    <Compile Include="Platform\Startup\IStartup.cs" />
+    <Compile Include="Platform\IPlugin\IPlugin.cs" />
     <Compile Include="Platform\UrlParser\DirUrl.cs" />
     <Compile Include="Platform\UrlParser\UidSingleton\Rid.cs" />
     <Compile Include="Platform\UrlParser\UidSingleton\RidOverlapException.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="Platform\Serialize\SqlQuery\SqlSingleton.cs" />
     <Compile Include="Platform\Property\PropertyId.cs" />
     <Compile Include="Platform\Init\_RunInit.cs" />
+    <Compile Include="Platform\Property\PropertyBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="diagram.cd" />

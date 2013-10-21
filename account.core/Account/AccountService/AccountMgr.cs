@@ -6,7 +6,7 @@ using account.message;
 
 namespace account.core
 {
-    public class AccountMgr
+    public class AccountMgr : PropertyMgr
     {
         public ErrorCode_ _createAccount(string nAccountName, string nNickname, string nPassward)
         {
