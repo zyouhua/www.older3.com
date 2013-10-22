@@ -24,6 +24,12 @@ namespace weibo.core
             return mTableId;
         }
 
+        public StatusIdB(uint nAccountMgrId, StatusId nStatusId)
+        {
+            mTableId = nStatusId._getTableId();
+            mAccountMgrId = nAccountMgrId;
+        }
+
         public StatusIdB()
         {
             mAccountMgrId = 0;

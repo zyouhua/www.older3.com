@@ -34,6 +34,7 @@ namespace weibo.core
         {
             InitService initService_ = __singleton<InitService>._instance();
             initService_.m_tRunStart += this._runStart;
+            initService_.m_tRunSave += this._saveStatusId;
         }
 
         void _runStart()
@@ -55,6 +56,22 @@ namespace weibo.core
                 throw new Exception();
             }
             statusIdSelectB_._initStatusId();
+        }
+
+        void _saveStatusId()
+        {
+            StatusIdInsertB statusIdInsertB_ = new StatusIdInsertB();
+            statusIdInsertB_._initStatusId();
+            SqlQuery sqlQuery_ = new SqlQuery();
+            sqlQuery_._addHeadstream(statusIdInsertB_);
+            SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
+            SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_);
+            if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
+            {
+                LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
+                logSingleton_._logError(string.Format(@"StatusService _saveStatusId _runSqlQuery:{0}", sqlErrorCode_));
+                throw new Exception();
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using platform;
+
 namespace startup
 {
     // 注意: 有关启用 IIS6 或 IIS7 经典模式的说明，
@@ -14,11 +16,22 @@ namespace startup
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            Startup startup_ = __singleton<Startup>._instance();
+            startup_._runLoad();
 
+            AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            startup_._runInit();
+            startup_._runStart();
+        }
+
+        protected void Application_End()
+        {
+            Startup startup_ = __singleton<Startup>._instance();
+            startup_._runQuit();
         }
     }
 }

@@ -1,38 +1,53 @@
 ﻿using System.IO;
-using System.Web;
 using System.Reflection;
 using System.Web.Hosting;
 
 using platform;
 
-[assembly: PreApplicationStartMethod(typeof(startup.Startup), "_runStart")]
 namespace startup
 {
     public class Startup
     {
-        public static void _runStart()
+        public void _runLoad()
         {
-            _initMvcEngine();
-            _configPlugin();
-            _loadPlugin();
-            _runInit();
-            _startMvcEngine();
+            this._initMvcEngine();
+            this._configPlugin();
+            this._loadPlugin();
         }
 
-        static void _initMvcEngine()
+        public void _runInit()
+        {
+            InitService initService_ = __singleton<InitService>._instance();
+            initService_.m_tRunInit();
+            initService_.m_tRunStart();
+        }
+
+        public void _runStart()
+        {
+            this._startMvcEngine();
+        }
+
+        public void _runQuit()
+        {
+            InitService initService_ = __singleton<InitService>._instance();
+            initService_.m_tRunSave();
+            initService_.m_tRunExit();
+        }
+
+        void _initMvcEngine()
         {
             Assembly assembly = Assembly.GetAssembly(typeof(MvcApplication));
             MvcEngineSingleton mvcEngineSingleton_ = __singleton<MvcEngineSingleton>._instance();
             mvcEngineSingleton_._addAssembly(assembly);
         }
 
-        static void _startMvcEngine()
+        void _startMvcEngine()
         {
             MvcEngineSingleton mvcEngineSingleton_ = __singleton<MvcEngineSingleton>._instance();
             mvcEngineSingleton_._runMvcEngine();
         }
 
-        static void _configPlugin()
+        void _configPlugin()
         {
             string systemPath_ = HostingEnvironment.MapPath(@"~");
             systemPath_ = Path.Combine(systemPath_, @"../../bin/platform");
@@ -40,7 +55,7 @@ namespace startup
             settingSingleton_._runConfig(systemPath_);
         }
 
-        static void _loadPlugin()
+        void _loadPlugin()
         {
             string pluginUrl_ = @"local://";
             pluginUrl_ += HostingEnvironment.MapPath(@"~\platform\pluginUrls.xml");
@@ -48,11 +63,6 @@ namespace startup
             platformSingleton_._loadPlugin(pluginUrl_);
         }
 
-        static void _runInit()
-        {
-            InitService initService_ = __singleton<InitService>._instance();
-            initService_.m_tRunInit();
-            initService_.m_tRunStart();
-        }
+
     }
 }

@@ -8,17 +8,15 @@ namespace weibo.core
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
-            throw new NotImplementedException();
         }
 
         public void _runWhere(ISqlFormat nSqlFormat)
         {
-            throw new NotImplementedException();
         }
 
         public string _tableName()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public SqlType_ _sqlType()
