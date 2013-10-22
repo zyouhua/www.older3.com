@@ -6,7 +6,8 @@ namespace platform
 {
     public class SqlFormat : ISqlFormat
     {
-        static readonly string mCharacter = @"'";
+        static readonly string mValueCharacter = @"'";
+        static readonly string mFieldCharacter = @"`";
 
         public void _serialize<__t>(ref List<__t> nValue, string nName) where __t : ISqlStream
         {
@@ -63,7 +64,9 @@ namespace platform
                     {
                         mValue += ",";
                     }
+                    mValue += mFieldCharacter;
                     mValue += mName;
+                    mValue += mFieldCharacter;
                     mValue += "= CASE ";
                     mSqlDeal = SqlDeal_.mSelect_;
                     mBeg = true;
@@ -109,12 +112,12 @@ namespace platform
             }
         }
 
-        public void _serialize<__t>(ref __t nValue, string nName)
+        public void _serialize<__t>(ref __t nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            this._runSerialize(ref nValue, nName, nSqlFieldId);
         }
 
-        void _runSerialize<__t>(ref __t nValue, string nName)
+        void _runSerialize<__t>(ref __t nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mSelect_ == mSqlDeal)
             {
@@ -122,7 +125,9 @@ namespace platform
                 {
                     mValue += ",";
                 }
+                mValue += mFieldCharacter;
                 mValue += nName;
+                mValue += mFieldCharacter;
                 if (mBeg)
                 {
                     mBeg = false;
@@ -134,9 +139,9 @@ namespace platform
                 {
                     mValue += ",";
                 }
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += Convert.ToString(nValue);
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 if (mBeg)
                 {
                     mBeg = false;
@@ -145,9 +150,9 @@ namespace platform
             else if (SqlDeal_.mWhere_ == mSqlDeal)
             {
                 mValue += nName;
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += Convert.ToString(nValue);
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += " ";
             }
             else if (SqlDeal_.mUpdate_ == mSqlDeal)
@@ -156,11 +161,13 @@ namespace platform
                 {
                     mValue += ",";
                 }
+                mValue += mFieldCharacter;
                 mValue += nName;
+                mValue += mFieldCharacter;
                 mValue += "=";
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += Convert.ToString(nValue);
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 if (mBeg)
                 {
                     mBeg = false;
@@ -176,10 +183,33 @@ namespace platform
                 {
                     mValue += @",";
                 }
+                mValue += mFieldCharacter;
                 mValue += nName;
+                mValue += mFieldCharacter;
                 mValue += @"=VALUES(";
+                mValue += mFieldCharacter;
                 mValue += nName;
+                mValue += mFieldCharacter;
                 mValue += @")";
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else if ((SqlDeal_.mPrimary_ == mSqlDeal) && ((nSqlFieldId & SqlFieldId_.mPrimary_) > 0))
+            {
+                if (false == mBeg)
+                {
+                    mValue += @",";
+                }
+                else
+                {
+                    mValue += @", PRIMARY KEY (";
+                }
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mEnd = true;
                 if (mBeg)
                 {
                     mBeg = false;
@@ -187,18 +217,18 @@ namespace platform
             }
             else if (SqlDeal_.mUpdateWhen_ == mSqlDeal)
             {
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += Convert.ToString(nValue);
-                mValue += mCharacter;
+                mValue += mValueCharacter;
                 mValue += " ";
             }
             else if (SqlDeal_.mUpdateThen_ == mSqlDeal)
             {
                 if (mName == nName)
                 {
-                    mValue += mCharacter;
+                    mValue += mValueCharacter;
                     mValue += Convert.ToString(nValue);
-                    mValue += mCharacter;
+                    mValue += mValueCharacter;
                 }
             }
             else
@@ -206,64 +236,472 @@ namespace platform
             }
         }
 
-        public void _serialize(ref bool nValue, string nName)
+        public void _serialize(ref bool nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " TINYINT(1)";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref sbyte nValue, string nName)
+        public void _serialize(ref sbyte nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10)";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref byte nValue, string nName)
+        public void _serialize(ref byte nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10) UNSIGNED";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref short nValue, string nName)
+        public void _serialize(ref short nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10)";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref ushort nValue, string nName)
+        public void _serialize(ref ushort nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10) UNSIGNED";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref int nValue, string nName)
+        public void _serialize(ref int nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10)";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref uint nValue, string nName)
+        public void _serialize(ref uint nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10) UNSIGNED";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref long nValue, string nName)
+        public void _serialize(ref long nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " BIGINT";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref ulong nValue, string nName)
+        public void _serialize(ref ulong nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " BIGINT UNSIGNED";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref string nValue, string nName)
+        public void _serialize(ref string nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " VARCHAR(255)";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref float nValue, string nName)
+        public void _serialize(ref float nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " FLOAT";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
-        public void _serialize(ref double nValue, string nName)
+        public void _serialize(ref double nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
-            this._runSerialize(ref nValue, nName);
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += Convert.ToString(nName);
+                mValue += mFieldCharacter;
+                mValue += " DOUBLE";
+                if ((nSqlFieldId & SqlFieldId_.mZeroFill_) > 0)
+                {
+                    mValue += " ZEROFILL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mBinary_) > 0)
+                {
+                    mValue += " BINARY";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mNotNull_) > 0)
+                {
+                    mValue += " NOT NULL";
+                }
+                if ((nSqlFieldId & SqlFieldId_.mAutoIncremet_) > 0)
+                {
+                    mValue += " AUTO_INCREMENT";
+                }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
         }
 
         public void _serialize(string nValue)
@@ -294,6 +732,10 @@ namespace platform
             {
                 this._runInsertUpdate(nSqlStream);
             }
+            else if (SqlType_.mCreate_ == sqlType_)
+            {
+                this._runCreate(nSqlStream);
+            }
             else
             {
             }
@@ -302,7 +744,9 @@ namespace platform
         public void _runDelete(ISqlHeadstream nSqlHeadstream)
         {
             mValue += @"DELETE FROM ";
+            mValue += mFieldCharacter;
             mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
             mValue += @" ";
             mSqlDeal = SqlDeal_.mWhere_;
             nSqlHeadstream._runWhere(this);
@@ -312,7 +756,9 @@ namespace platform
         public void _runInsert(ISqlHeadstream nSqlHeadstream)
         {
             mValue += @"INSERT INTO ";
+            mValue += mFieldCharacter;
             mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
             mValue += @" (";
             mBeg = true;
             mSqlDeal = SqlDeal_.mSelect_;
@@ -334,7 +780,9 @@ namespace platform
             mSqlDeal = SqlDeal_.mSelect_;
             nSqlHeadstream._runSelect(this);
             mValue += @" FROM ";
+            mValue += mFieldCharacter;
             mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
             mValue += @" ";
             mSqlDeal = SqlDeal_.mWhere_;
             nSqlHeadstream._runWhere(this);
@@ -344,7 +792,9 @@ namespace platform
         public void _runUpdate(ISqlHeadstream nSqlHeadstream)
         {
             mValue += @"UPDATE ";
+            mValue += mFieldCharacter;
             mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
             mValue += @" SET ";
             mBeg = true;
             mSqlDeal = SqlDeal_.mUpdate_;
@@ -358,7 +808,9 @@ namespace platform
         public void _runInsertUpdate(ISqlHeadstream nSqlHeadstream)
         {
             mValue += @"INSERT INTO ";
+            mValue += mFieldCharacter;
             mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
             mValue += @" (";
             mBeg = true;
             mSqlDeal = SqlDeal_.mSelect_;
@@ -375,6 +827,28 @@ namespace platform
             mSqlDeal = SqlDeal_.mNone_;
         }
 
+        public void _runCreate(ISqlHeadstream nSqlHeadstream)
+        {
+            mValue += @"CREATE TABLE ";
+            mValue += mFieldCharacter;
+            mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
+            mValue += @" (";
+            mBeg = true;
+            mSqlDeal = SqlDeal_.mCreate_;
+            nSqlHeadstream._runSelect(this);
+            mBeg = true;
+            mEnd = false;
+            mSqlDeal = SqlDeal_.mPrimary_;
+            nSqlHeadstream._runSelect(this);
+            if (mEnd)
+            {
+                mValue += @")";
+            }
+            mValue += @");";
+            mSqlDeal = SqlDeal_.mNone_;
+        }
+
         public string _sqlCommand()
         {
             return mValue;
@@ -387,6 +861,7 @@ namespace platform
             mValue = null;
             mName = null;
             mBeg = false;
+            mEnd = false;
         }
 
         List<string> mUpdate;
@@ -394,5 +869,6 @@ namespace platform
         string mValue;
         string mName;
         bool mBeg;
+        bool mEnd;
     }
 }

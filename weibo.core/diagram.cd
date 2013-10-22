@@ -3,8 +3,16 @@
   <Class Name="weibo.core.StatusIdInsertB" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAgAAAAAAAAAAAAAAAAAAACAAAAAAAAAAgIA=</HashCode>
+      <HashCode>AAABAAAAAgAAAAAAAAEAAAAAAAAAACAAAAAAAAAAgIA=</HashCode>
       <FileName>Status\StatusSql\StatusIdInsertB.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="weibo.core.StatusTableCreateB">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIAAAAAAAAAAAABACAAAAAAAAAAgIA=</HashCode>
+      <FileName>Status\StatusSql\StatusTableCreateB.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

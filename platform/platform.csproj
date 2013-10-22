@@ -164,6 +164,8 @@
     <Compile Include="Platform\Property\PropertyId.cs" />
     <Compile Include="Platform\Init\_RunInit.cs" />
     <Compile Include="Platform\Property\PropertyBox.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlField_.cs" />
+    <Compile Include="Platform\Serialize\SqlQuery\SqlFieldId_.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="diagram.cd" />

@@ -131,6 +131,11 @@ namespace account.core
             }
             return result_;
         }
+
+        public uint _getId()
+        {
+            return mId;
+        }
         
         ErrorCode_ _getErrorCode(SqlErrorCode_ nSqlErrorCode)
         {

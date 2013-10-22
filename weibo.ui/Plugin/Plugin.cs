@@ -9,7 +9,7 @@ namespace weibo.ui
     {
         public void _runLoad()
         {
-            Assembly assembly = typeof(Startup).Assembly;
+            Assembly assembly = typeof(Plugin).Assembly;
             MvcEngineSingleton mvcEngineSingleton_ = __singleton<MvcEngineSingleton>._instance();
             mvcEngineSingleton_._addAssembly(assembly);
         }

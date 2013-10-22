@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using platform;
 using account.core;
@@ -6,12 +7,12 @@ using weibo.message;
 
 namespace weibo.core
 {
-    public class StatusCreateB : ISqlHeadstream
+    public class StatusTableCreateB : ISqlHeadstream
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
-            nSqlFormat._serialize(ref mStatusId, @"statusId");
-            nSqlFormat._serialize(ref mAccountId, @"accountId");
+            nSqlFormat._serialize(ref mStatusId, @"statusId", SqlFieldId_.mPrimary_|SqlFieldId_.mNotNull_|SqlFieldId_.mZeroFill_);
+            nSqlFormat._serialize(ref mAccountId, @"accountId", SqlFieldId_.mNotNull_ | SqlFieldId_.mZeroFill_);
             nSqlFormat._serialize(ref mText, @"text");
             nSqlFormat._serialize(ref mType, @"type");
             nSqlFormat._serialize(ref mTicks, @"createTime");
@@ -29,19 +30,19 @@ namespace weibo.core
 
         public SqlType_ _sqlType()
         {
-            return SqlType_.mInsert_;
+            return SqlType_.mCreate_;
         }
 
-        public StatusCreateB(Account nAccount, uint nTableId, uint nAccountMgrId, StatusCreateS nStatusCreateS)
+        public StatusTableCreateB(uint nTableId, uint nAccountMgrId)
         {
             mAccountMgrId = nAccountMgrId;
             mTableId = nTableId;
-            mAccountId = nAccount._getAccountId();
-            mText = nStatusCreateS.m_tText;
-            mType = (uint)nStatusCreateS.m_tStatusType;
-            mAttachments = nStatusCreateS.m_tAttachments;
-            mTicks = DateTime.Now.Ticks;
-            mStatusId = GenerateId._runId(mAccountId);
+            mStatusId = 0;
+            mAccountId = 0;
+            mTicks = 0;
+            mText = null;
+            mType = (uint)StatusType_.mText_;
+            mAttachments = null;
         }
 
         uint mAccountMgrId;

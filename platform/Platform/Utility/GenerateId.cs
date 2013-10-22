@@ -7,10 +7,24 @@ namespace platform
     {
         public static long _runId(string nName)
         {
+            //DateTime dataTime_ = DateTime.Now;
+            DateTime dataTime_ = new DateTime(2013, 9, 24);
             long minute_ = 100000000;
             long baseTime_ = 6349259520;
-            uint ticks_ = (uint)(DateTime.Now.Ticks / minute_ - baseTime_);
+            uint ticks_ = (uint)(dataTime_.Ticks / minute_ - baseTime_);
             long result_ = (long)_runCommon(nName);
+            result_ <<= 32;
+            result_ += ticks_;
+            return result_;
+        }
+
+        public static long _runId(uint nId)
+        {
+            DateTime dataTime_ = DateTime.Now;
+            long minute_ = 100000000;
+            long baseTime_ = 6349259520;
+            uint ticks_ = (uint)(dataTime_.Ticks / minute_ - baseTime_);
+            long result_ = (long)nId;
             result_ <<= 32;
             result_ += ticks_;
             return result_;

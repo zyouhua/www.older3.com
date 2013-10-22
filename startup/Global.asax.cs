@@ -16,22 +16,16 @@ namespace startup
     {
         protected void Application_Start()
         {
-            Startup startup_ = __singleton<Startup>._instance();
-            startup_._runLoad();
-
             AreaRegistration.RegisterAllAreas();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            startup_._runInit();
-            startup_._runStart();
+            Startup._runStart();
         }
 
         protected void Application_End()
         {
-            Startup startup_ = __singleton<Startup>._instance();
-            startup_._runQuit();
+            Startup._runQuit();
         }
     }
 }

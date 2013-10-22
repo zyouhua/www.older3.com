@@ -15,7 +15,7 @@ namespace weibo.core
             Account account_ = accountService_._getAccount(nStatusCreateS.m_tName, 
                 nStatusCreateS.m_tDeviceId, nStatusCreateS.m_tDeviceType);
             StatusMgr statusMgr_ = account_._getProperty<StatusMgr>(PropertyId<StatusMgr>._classId());
-            return statusMgr_._createStatus(nStatusCreateS);
+            return statusMgr_._createStatus(account_, nStatusCreateS);
         }
 
         public void _runPreinit()

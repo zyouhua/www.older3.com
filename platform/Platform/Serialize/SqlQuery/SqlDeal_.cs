@@ -11,5 +11,7 @@
         mUpdateWhen_,
         mUpdateThen_,
         mInsertUpdate_,
+        mCreate_,
+        mPrimary_,
     }
 }
