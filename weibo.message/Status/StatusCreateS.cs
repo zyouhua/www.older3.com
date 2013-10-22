@@ -2,6 +2,7 @@
 {
     public class StatusCreateS
     {
+        public uint m_tId { get; set; }
         public string m_tName { get; set; }
         public long m_tDeviceId { get; set; }
         public uint m_tDeviceType { get; set; }

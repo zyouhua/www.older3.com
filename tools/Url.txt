@@ -8,4 +8,4 @@ http://localhost:7370/api/weibo.ui/Status/_createStatus
 
 Content-Type:text/json
 
-{"m_tName":"zyh","m_tDeviceId":-1925104217234402944,"m_tDeviceType":1282682146,"m_tText":"text","m_tStatusType":"mVideo_","m_tAttachments":"http://www.cnblogs.com/parry/archive/2012/09/27/ASPNET_MVC_Web_API.html"}
+{"m_tId":1,"m_tName":"zyh","m_tDeviceId":-1925104217234402944,"m_tDeviceType":1282682146,"m_tText":"text","m_tStatusType":"mVideo_","m_tAttachments":"http://www.cnblogs.com/parry/archive/2012/09/27/ASPNET_MVC_Web_API.html"}
