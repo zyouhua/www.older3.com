@@ -14,6 +14,8 @@ namespace platform
 
         void _serialize(ref byte nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_);
 
+        void _serialize(ref byte [] nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_);
+
         void _serialize(ref short nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_);
 
         void _serialize(ref ushort nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_);

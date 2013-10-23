@@ -533,10 +533,6 @@ namespace platform
             {
                 return new XmlISerialize();
             }
-            else if (nSerializeType == SerializeType_.mTxt_)
-            {
-                return new TextISerialize();
-            }
             else
             {
                 return null;
@@ -548,10 +544,6 @@ namespace platform
             if (nSerializeType == SerializeType_.mXml_)
             {
                 return new XmlOSerialize();
-            }
-            else if (nSerializeType == SerializeType_.mTxt_)
-            {
-                return new TextOSerialize();
             }
             else
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 
 using platform;
@@ -28,14 +29,46 @@ namespace weibo.core
             SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_);
             if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
             {
-                LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(string.Format(@"StatusService _createStatus _runSqlQuery:{0}", sqlErrorCode_));
                 nStatusCreateC.m_tErrorCode = this._getErrorCode(sqlErrorCode_);
             }
             else
             {
+                long statusId_ = statusCreateB_._statusId();
                 nStatusCreateC.m_tErrorCode = ErrorCode_.mSucess_;
+                nStatusCreateC.m_tStatusId = statusId_;
+                nStatusCreateC.m_tTicks = statusCreateB_._getTicks();
+                mStatusIds[statusId_] = new StatusId(tableId_, statusId_);
             }
+        }
+
+        public void _runAccountLogin()
+        {
+            StatusMgrSelectB statusMgrSelectB_ = new StatusMgrSelectB(this);
+            SqlQuery sqlQuery_ = new SqlQuery();
+            sqlQuery_._addHeadstream(statusMgrSelectB_);
+            SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
+            SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusMgrSelectB_);
+            if (SqlErrorCode_.mSucess_ == sqlErrorCode_)
+            {
+                string value_ = statusMgrSelectB_._getString();
+                if (null != value_)
+                {
+                    this._initStatusIds(value_);
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        public void _runAccountLogout()
+        {
+            StatusMgrInsertB statusMgrInsertB_ = new StatusMgrInsertB(this);
+            SqlQuery sqlQuery_ = new SqlQuery();
+            sqlQuery_._addHeadstream(statusMgrInsertB_);
+            SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
+            mySqlSingleton_._runSqlQuery(sqlQuery_);
         }
 
         ErrorCode_ _getErrorCode(SqlErrorCode_ nSqlErrorCode)
@@ -48,6 +81,54 @@ namespace weibo.core
             return result_;
         }
 
-        Dictionary<long, StatusId> mStatusId;
+        void _headSerialize(ISerialize nSerialize)
+        {
+            nSerialize._serialize(ref mStatusIds, @"statusIds");
+        }
+
+        string _streamName()
+        {
+            return "statusMgr";
+        }
+
+        public void _initStatusIds(string nValue)
+        {
+            XmlISerialize xmlISerialize_ = new XmlISerialize();
+            xmlISerialize_._openString(nValue);
+            xmlISerialize_._selectStream(this._streamName());
+            this._headSerialize(xmlISerialize_);
+            xmlISerialize_._runClose();
+        }
+
+        public string _getStrStatusIds()
+        {
+            string result_ = null;
+            XmlOSerialize xmlOSerialize_ = new XmlOSerialize();
+            xmlOSerialize_._openString(null);
+            xmlOSerialize_._selectStream(this._streamName());
+            this._headSerialize(xmlOSerialize_);
+            result_ = xmlOSerialize_._getString();
+            xmlOSerialize_._runClose();
+            return result_;
+        }
+
+        public IDictionary<long, StatusId> _getStatusIds()
+        {
+            return mStatusIds;
+        }
+
+        public override void _runInit()
+        {
+            Account account_ = this._getPropertyMgr<Account>();
+            account_.m_tRunLogin += _runAccountLogin;
+            account_.m_tRunLogout += _runAccountLogout;
+        }
+
+        public StatusMgr()
+        {
+            mStatusIds = new Dictionary<long, StatusId>();
+        }
+
+        Dictionary<long, StatusId> mStatusIds;
     }
 }

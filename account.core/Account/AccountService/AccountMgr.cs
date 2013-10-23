@@ -38,6 +38,7 @@ namespace account.core
                 result_ = account_._logout(nDeviceId, nDeviceType);
                 if (!account_._isOnline())
                 {
+                    account_.m_tRunLogout();
                     mAccounts.Remove(account_._getAccountId());
                 }
             }
@@ -101,6 +102,7 @@ namespace account.core
                 result_ = nAccountLoginB._createAccount();
                 result_._addDeviceType(nDeviceType);
                 result_._setAccountMgr(this);
+                result_.m_tRunLogin();
                 mAccounts[accountId] = result_;
             }
             return result_;

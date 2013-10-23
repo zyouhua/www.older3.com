@@ -129,8 +129,6 @@
     <Compile Include="Platform\Serialize\Serialize\Headstream\Stream.cs" />
     <Compile Include="Platform\Serialize\Serialize\Headstream\_SerializeSlot.cs" />
     <Compile Include="Platform\Serialize\Serialize\Headstream\_SerializeTypeSlot.cs" />
-    <Compile Include="Platform\Serialize\Text\TextISerialize.cs" />
-    <Compile Include="Platform\Serialize\Text\TextOSerialize.cs" />
     <Compile Include="Platform\Serialize\Url\Ufl\IUfl.cs" />
     <Compile Include="Platform\Serialize\Url\Ufl\Ufl.cs" />
     <Compile Include="Platform\Serialize\Url\Url\ICreate.cs" />
@@ -162,7 +160,6 @@
     <Compile Include="Platform\Serialize\SqlQuery\SqlDeal_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlSingleton.cs" />
     <Compile Include="Platform\Property\PropertyId.cs" />
-    <Compile Include="Platform\Init\_RunInit.cs" />
     <Compile Include="Platform\Property\PropertyBox.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlField_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlFieldId_.cs" />

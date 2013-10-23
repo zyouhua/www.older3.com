@@ -13,5 +13,7 @@
         mInsertUpdate_,
         mCreate_,
         mPrimary_,
+        mUpdateInsert_,
+        mUpdateInsertE_,
     }
 }

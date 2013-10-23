@@ -2,10 +2,10 @@
 {
     public class InitService
     {
-        public _RunInit m_tRunInit;
-        public _RunInit m_tRunStart;
-        public _RunInit m_tRunExit;
-        public _RunInit m_tRunSave;
+        public _RunSlot m_tRunInit;
+        public _RunSlot m_tRunStart;
+        public _RunSlot m_tRunExit;
+        public _RunSlot m_tRunSave;
 
         public InitService()
         {

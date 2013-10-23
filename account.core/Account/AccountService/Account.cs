@@ -104,10 +104,15 @@ namespace account.core
             return mAccountId;
         }
 
+        public _RunSlot m_tRunLogin;
+        public _RunSlot m_tRunLogout;
+
         public Account()
         {
             mDeviceStatus = new Dictionary<uint, DeviceStatus>();
             mAccountMgr = null;
+            m_tRunLogin = null;
+            m_tRunLogout = null;
             mNick = null;
             mAccountId = 0;
             mTicks = 0;

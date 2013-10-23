@@ -2,7 +2,7 @@
 {
     public class Property
     {
-        protected __t _getPropertyMgr<__t>() where __t : PropertyMgr
+        public __t _getPropertyMgr<__t>() where __t : PropertyMgr
         {
             return mPropertyMgr as __t;
         }
@@ -10,6 +10,10 @@
         public void _setPropertyMgr(PropertyMgr nPropertyMgr)
         {
             mPropertyMgr = nPropertyMgr;
+        }
+
+        public virtual void _runInit()
+        {
         }
 
         public Property()

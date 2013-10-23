@@ -32,6 +32,21 @@ namespace weibo.core
             return SqlType_.mInsert_;
         }
 
+        public long _getTicks()
+        {
+            return mTicks;
+        }
+
+        public long _statusId()
+        {
+            return mStatusId;
+        }
+
+        public uint _tableId()
+        {
+            return mTableId;
+        }
+
         public StatusCreateB(Account nAccount, uint nTableId, uint nAccountMgrId, StatusCreateS nStatusCreateS)
         {
             mAccountMgrId = nAccountMgrId;

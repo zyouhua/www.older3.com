@@ -4,7 +4,6 @@
     {
         mNone_,
         mXml_,
-        mBin_,
-        mTxt_
+        mBin_
     }
 }

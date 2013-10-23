@@ -609,6 +609,23 @@ namespace platform
             mXmlDocument.AppendChild(xmlDeclaration_);
         }
 
+        public void _openString(string nString)
+        {
+            XmlDeclaration xmlDeclaration_ = mXmlDocument.CreateXmlDeclaration("1.0", "utf-8", null);
+            mXmlDocument.AppendChild(xmlDeclaration_);
+            mPath = nString;
+            mMemory = true;
+        }
+
+        public string _getString()
+        {
+            if (mMemory)
+            {
+                mPath = mXmlDocument.OuterXml;
+            }
+            return mPath;
+        }
+
         public void _selectStream(string nStreamName)
         {
             mXmlElement = mXmlDocument.CreateElement(nStreamName);
@@ -622,12 +639,16 @@ namespace platform
 
         public void _runClose()
         {
-            mXmlDocument.Save(mPath);
+            if (!mMemory)
+            {
+                mXmlDocument.Save(mPath);
+            }
             mXmlElements.Clear();
             mXmlElements = null;
             mXmlDocument = null;
             mXmlElement = null;
             mPath = null;
+            mMemory = false;
         }
 
         public XmlOSerialize()
@@ -642,5 +663,6 @@ namespace platform
         XmlDocument mXmlDocument;
         XmlElement mXmlElement;
         string mPath;
+        bool mMemory;
     }
 }

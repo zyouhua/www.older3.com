@@ -11,7 +11,7 @@ USE wanmei;
  */
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `Account`$$
+DROP PROCEDURE IF EXISTS `account`$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `account`()
 BEGIN

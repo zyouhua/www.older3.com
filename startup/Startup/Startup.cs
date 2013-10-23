@@ -21,15 +21,27 @@ namespace startup
         public static void _runStart()
         {
             InitService initService_ = __singleton<InitService>._instance();
-            initService_.m_tRunInit();
-            initService_.m_tRunStart();
+            if (null != initService_.m_tRunInit)
+            {
+                initService_.m_tRunInit();
+            }
+            if (null != initService_.m_tRunStart)
+            {
+                initService_.m_tRunStart();
+            }
         }
 
         public static void _runQuit()
         {
             InitService initService_ = __singleton<InitService>._instance();
-            initService_.m_tRunSave();
-            initService_.m_tRunExit();
+            if (null != initService_.m_tRunSave)
+            {
+                initService_.m_tRunSave();
+            }
+            if (null != initService_.m_tRunExit)
+            {
+                initService_.m_tRunExit();
+            }
         }
 
         static void _initMvcEngine()

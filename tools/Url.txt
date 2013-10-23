@@ -2,10 +2,10 @@ http://localhost:7370/api/account.ui/Account/_createAccount/?nName=zyh&nNick=%E5
 
 http://localhost:7370/api/account.ui/Account/_loginAccount/?nName=zyh&nPassward=111111&nDeviceType=1282682146
 
-http://localhost:7370/api/account.ui/Account/_logoutAccount/?nName=zyh&nDeviceId=-1925104217234402944&DeviceType=1282682146
+http://localhost:7370/api/account.ui/Account/_logoutAccount/?nName=zyh&nDeviceId=-1925104217234402944&nDeviceType=1282682146&nServerId=0
 
 http://localhost:7370/api/weibo.ui/Status/_createStatus
 
 Content-Type:text/json
 
-{"m_tId":1,"m_tName":"zyh","m_tDeviceId":-1925104217234402944,"m_tDeviceType":1282682146,"m_tText":"text","m_tStatusType":"mVideo_","m_tAttachments":"http://www.cnblogs.com/parry/archive/2012/09/27/ASPNET_MVC_Web_API.html"}
+{"m_tName":"zyh","m_tDeviceId":-1925104217234402944,"m_tDeviceType":1282682146,"m_tText":"text","m_tStatusType":"mVideo_","m_tAttachments":"http://www.cnblogs.com/parry/archive/2012/09/27/ASPNET_MVC_Web_API.html"}

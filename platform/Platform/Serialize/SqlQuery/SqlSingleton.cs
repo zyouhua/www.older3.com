@@ -16,13 +16,20 @@ namespace platform
             try
             {
                 mySqlConnection_.Open();
-                MySqlCommand mySqlCommand_ = new MySqlCommand(sqlCommand_, mySqlConnection_);
+                MySqlCommand mySqlCommand_ = new MySqlCommand();
+                mySqlCommand_.Connection = mySqlConnection_;
+                mySqlCommand_.CommandText = sqlCommand_;
+                IDictionary<string, object> fields_ = nSqlQuery._getFields();
+                foreach (KeyValuePair<string, object> i in fields_)
+                {
+                    mySqlCommand_.Parameters.AddWithValue(i.Key, i.Value);
+                }
                 mySqlCommand_.ExecuteNonQuery();
             }
-            catch (Exception exception_)
+            catch (MySqlException exception_)
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(exception_.ToString());
+                logSingleton_._logError(string.Format(@"sqlError:{0},{1}", exception_.Number, exception_.Message));
                 errorCode_ = SqlErrorCode_.mFail_;
             }
             mySqlConnection_.Close();
@@ -46,10 +53,10 @@ namespace platform
                 }
                 mySqlDataReader_.Close();
             }
-            catch (Exception exception_)
+            catch (MySqlException exception_)
             {
                 LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(exception_.ToString());
+                logSingleton_._logError(string.Format(@"sqlError:{0},{1}", exception_.Number, exception_.Message));
                 errorCode_ = SqlErrorCode_.mFail_;
             }
             mySqlConnection_.Close();

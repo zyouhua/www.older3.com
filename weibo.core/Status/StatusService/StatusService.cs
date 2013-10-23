@@ -12,6 +12,7 @@ namespace weibo.core
         public StatusCreateC _createStatus(StatusCreateS nStatusCreateS)
         {
             StatusCreateC result_ = new StatusCreateC();
+            result_.m_tId = nStatusCreateS.m_tId;
             AccountService accountService_ = __singleton<AccountService>._instance();
             Account account_ = accountService_._getAccount(nStatusCreateS.m_tName, 
                 nStatusCreateS.m_tDeviceId, nStatusCreateS.m_tDeviceType);
@@ -60,8 +61,6 @@ namespace weibo.core
             SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusOptionSelectB_);
             if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
             {
-                LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(string.Format(@"StatusService _startStatusOption _runSqlQuery:{0}", sqlErrorCode_));
                 throw new Exception();
             }
             statusOptionSelectB_._initStatusOption();
@@ -77,8 +76,6 @@ namespace weibo.core
             SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_);
             if (SqlErrorCode_.mSucess_ != sqlErrorCode_)
             {
-                LogSingleton logSingleton_ = __singleton<LogSingleton>._instance();
-                logSingleton_._logError(string.Format(@"StatusService _saveStatusOption _runSqlQuery:{0}", sqlErrorCode_));
                 throw new Exception();
             }
         }

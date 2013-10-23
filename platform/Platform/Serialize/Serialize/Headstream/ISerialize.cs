@@ -59,6 +59,7 @@ namespace platform
         void _serialize<__t>(ref List<__t> nValue, string nName) where __t : IStream;
         //ISerialize
         void _openUrl(string nUrl);
+        void _openString(string nString);
         void _selectStream(string nStreamName);
         SerializeIO_ _serializeIO();
         void _runClose();

@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="platform.BinISerialize">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platform\Serialize\Binary\BinISerialize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="platform.BinOSerialize">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Platform\Serialize\Binary\BinOSerialize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="platform.SqlField_" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -10,7 +24,7 @@
   <Enum Name="platform.SqlFieldId_" Collapsed="true">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAACAAAAAAAAAAEAAAAAABACEAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AABAACAAAAAAAAAAEAAAAAABACEAAAAAABAABAAAAAA=</HashCode>
       <FileName>Platform\Serialize\SqlQuery\SqlFieldId_.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -29,6 +29,13 @@ namespace platform
             nValue = mMySqlDataReader.GetByte(nName);
         }
 
+        public void _serialize(ref byte[] nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
+        {
+            int size_ = mMySqlDataReader.GetInt32(string.Format(@"{0}_i", nName));
+            nValue = new byte[size_];
+            mMySqlDataReader.GetBytes(mMySqlDataReader.GetOrdinal(nName), 0, nValue, 0, size_);
+        }
+
         public void _serialize(ref short nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             nValue = mMySqlDataReader.GetInt16(nName);

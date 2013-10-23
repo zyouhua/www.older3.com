@@ -39,7 +39,7 @@ namespace platform
             }
             else if (SqlDeal_.mInsertUpdate_ == mSqlDeal)
             {
-                mValue += "ON DUPLICATE KEY UPDATE";
+                mValue += "ON DUPLICATE KEY UPDATE ";
                 mBeg = true;
                 foreach (__t i in nValue)
                 {
@@ -342,6 +342,97 @@ namespace platform
                 {
                     mValue += " AUTO_INCREMENT";
                 }
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else
+            {
+                this._runSerialize(ref nValue, nName, nSqlFieldId);
+            }
+        }
+
+        public void _serialize(ref byte[] nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
+        {
+            if (SqlDeal_.mCreate_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += " BLOB NULL,";
+                mValue += mFieldCharacter;
+                mValue += string.Format(@"{0}_i", nName);
+                mValue += mFieldCharacter;
+                mValue += " INT(10) ZEROFILL NOT NULL";
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else if (SqlDeal_.mSelect_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += ",";
+                mValue += mFieldCharacter;
+                mValue += string.Format(@"{0}_i", nName);
+                mValue += mFieldCharacter;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+            }
+            else if (SqlDeal_.mUpdateInsert_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += ",";
+                }
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += ",";
+                mValue += mFieldCharacter;
+                mValue += string.Format(@"{0}_i", nName);
+                mValue += mFieldCharacter;
+                if (mBeg)
+                {
+                    mBeg = false;
+                }
+                mFields[nName] = nValue;
+            }
+            else if (SqlDeal_.mUpdateInsertE_ == mSqlDeal)
+            {
+                if (false == mBeg)
+                {
+                    mValue += @",";
+                }
+                mValue += mFieldCharacter;
+                mValue += string.Format(@"{0}_i", nName);
+                mValue += mFieldCharacter;
+                mValue += @"=VALUES(";
+                mValue += mFieldCharacter;
+                mValue += string.Format(@"{0}_i", nName);
+                mValue += mFieldCharacter;
+                mValue += @"),";
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += @"=VALUES(";
+                mValue += mFieldCharacter;
+                mValue += nName;
+                mValue += mFieldCharacter;
+                mValue += @")";
                 if (mBeg)
                 {
                     mBeg = false;
@@ -732,6 +823,10 @@ namespace platform
             {
                 this._runInsertUpdate(nSqlStream);
             }
+            else if (SqlType_.mUpdateInsert_ == sqlType_)
+            {
+                this._runUpdateInsert(nSqlStream);
+            }
             else if (SqlType_.mCreate_ == sqlType_)
             {
                 this._runCreate(nSqlStream);
@@ -827,6 +922,25 @@ namespace platform
             mSqlDeal = SqlDeal_.mNone_;
         }
 
+        public void _runUpdateInsert(ISqlHeadstream nSqlHeadstream)
+        {
+            mValue += @"INSERT INTO ";
+            mValue += mFieldCharacter;
+            mValue += nSqlHeadstream._tableName();
+            mValue += mFieldCharacter;
+            mValue += @" VALUES (";
+            mBeg = true;
+            mSqlDeal = SqlDeal_.mUpdateInsert_;
+            nSqlHeadstream._runSelect(this);
+            mValue += @") ON DUPLICATE KEY UPDATE ";
+            mBeg = true;
+            mSqlDeal = SqlDeal_.mUpdateInsertE_;
+            nSqlHeadstream._runSelect(this);
+            mSqlDeal = SqlDeal_.mWhere_;
+            nSqlHeadstream._runWhere(this);
+            mSqlDeal = SqlDeal_.mNone_;
+        }
+
         public void _runCreate(ISqlHeadstream nSqlHeadstream)
         {
             mValue += @"CREATE TABLE ";
@@ -845,8 +959,13 @@ namespace platform
             {
                 mValue += @")";
             }
-            mValue += @");";
+            mValue += @")ENGINE=MYISAM DEFAULT CHARSET=utf8;";
             mSqlDeal = SqlDeal_.mNone_;
+        }
+
+        public IDictionary<string, object> _getFields()
+        {
+            return mFields;
         }
 
         public string _sqlCommand()
@@ -856,6 +975,7 @@ namespace platform
 
         public SqlFormat()
         {
+            mFields = new Dictionary<string, object>();
             mUpdate = new List<string>();
             mSqlDeal = SqlDeal_.mNone_;
             mValue = null;
@@ -864,6 +984,7 @@ namespace platform
             mEnd = false;
         }
 
+        Dictionary<string, object> mFields;
         List<string> mUpdate;
         SqlDeal_ mSqlDeal;
         string mValue;

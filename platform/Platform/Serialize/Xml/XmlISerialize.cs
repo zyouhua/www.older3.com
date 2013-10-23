@@ -1153,6 +1153,11 @@ namespace platform
             mXmlDocument.Load(path_);
         }
 
+        public void _openString(string nString)
+        {
+            mXmlDocument.LoadXml(nString);
+        }
+
         public void _selectStream(string nStreamName)
         {
             mXmlNode = mXmlDocument.SelectSingleNode(nStreamName);

@@ -8,5 +8,6 @@
         mDelete_,
         mInsertUpdate_,
         mCreate_,
+        mUpdateInsert_,
     }
 }
