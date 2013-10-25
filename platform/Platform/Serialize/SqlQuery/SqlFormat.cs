@@ -364,6 +364,10 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<sbyte> nValue, string nName)
+        {
+        }
+
         public void _serialize(ref byte nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mCreate_ == mSqlDeal)
@@ -416,6 +420,10 @@ namespace platform
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
             }
+        }
+
+        public void _serialize(ref List<byte> nValue, string nName)
+        {
         }
 
         public void _serialize(ref byte[] nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
@@ -565,6 +573,10 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<short> nValue, string nName)
+        {
+        }
+
         public void _serialize(ref ushort nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mCreate_ == mSqlDeal)
@@ -617,6 +629,10 @@ namespace platform
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
             }
+        }
+
+        public void _serialize(ref List<ushort> nValue, string nName)
+        {
         }
 
         public void _serialize(ref int nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
@@ -673,6 +689,10 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<int> nValue, string nName)
+        {
+        }
+
         public void _serialize(ref uint nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mCreate_ == mSqlDeal)
@@ -725,6 +745,10 @@ namespace platform
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
             }
+        }
+
+        public void _serialize(ref List<uint> nValue, string nName)
+        {
         }
 
         public void _serialize(ref long nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
@@ -781,6 +805,28 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<long> nValue, string nName)
+        {
+            if (SqlDeal_.mWhere_ == mSqlDeal)
+            {
+                bool beg_ = true;
+                mValue += nName;
+                mValue += "(";
+                foreach (long i in nValue)
+                {
+                    if (false == beg_)
+                    {
+                        mValue += ",";
+                    }
+                    mValue += mValueCharacter;
+                    mValue += Convert.ToString(i);
+                    mValue += mValueCharacter;
+                    beg_ = false;
+                }
+                mValue += ") ";
+            }
+        }
+
         public void _serialize(ref ulong nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mCreate_ == mSqlDeal)
@@ -833,6 +879,10 @@ namespace platform
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
             }
+        }
+        
+        public void _serialize(ref List<ulong> nValue, string nName)
+        {
         }
 
         public void _serialize(ref string nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
@@ -889,6 +939,10 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<string> nValue, string nName)
+        {
+        }
+
         public void _serialize(ref float nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mInsert_ == mSqlDeal)
@@ -943,6 +997,10 @@ namespace platform
             }
         }
 
+        public void _serialize(ref List<float> nValue, string nName)
+        {
+        }
+
         public void _serialize(ref double nValue, string nName, SqlFieldId_ nSqlFieldId = SqlFieldId_.mNone_)
         {
             if (SqlDeal_.mCreate_ == mSqlDeal)
@@ -995,6 +1053,10 @@ namespace platform
             {
                 this._runSerialize(ref nValue, nName, nSqlFieldId);
             }
+        }
+
+        public void _serialize(ref List<double> nValue, string nName)
+        {
         }
 
         public void _serialize(string nValue)

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Status\StatusC.cs" />
     <Compile Include="Status\StatusGetS.cs" />
     <Compile Include="Status\StatusGetC.cs" />
     <Compile Include="Status\StatusType_.cs" />

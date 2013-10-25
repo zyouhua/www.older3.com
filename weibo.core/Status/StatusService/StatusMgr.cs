@@ -3,8 +3,8 @@ using System.Text;
 using System.Collections.Generic;
 
 using platform;
-using weibo.message;
 using account.core;
+using weibo.message;
 
 namespace weibo.core
 {
@@ -15,7 +15,7 @@ namespace weibo.core
             AccountMgr accountMgr_ = nAccount._getAccountMgr();
             StatusOption statusOption_ = accountMgr_._getProperty<StatusOption>(StatusService._classId());
             uint tableId_ = statusOption_._getTableId();
-            uint accountMgrId_ = accountMgr_._getId();
+            uint accountMgrId_ = accountMgr_._getAccountMgrId();
             SqlQuery sqlQuery_ = new SqlQuery();
             if (statusOption_._createTable())
             {
@@ -38,36 +38,85 @@ namespace weibo.core
                 nStatusCreateC.m_tStatusId = statusId_;
                 mTicks = statusCreateB_._getTicks();
                 nStatusCreateC.m_tTicks = mTicks;
-                mStatusIds[statusId_] = new StatusId(tableId_, statusId_);
+                mStatusIds.Add(new StatusId(tableId_, statusId_, mTicks));
             }
         }
 
-        public void _getStatus(StatusGetC nStatusGetC, long nTicks)
+        public void _getStatus(StatusGetC nStatusGetC, long nTicks, uint nAccountMgrId, uint nAccountId)
         {
-            foreach (KeyValuePair<long, StatusId> i in mStatusIds)
+            StatusSelectB statusSelectB_ = new StatusSelectB();
+            SqlQuery sqlQuery_ = new SqlQuery();
+            SortedSet<uint> tables_ = new SortedSet<uint>();
+            int pos = 0;
+            foreach (StatusId i in mStatusIds)
             {
-
+                if (i._getTicks() > nTicks)
+                {
+                    break;
+                }
+                tables_.Add(i._getTableId());
+                ++pos;
+                if (pos > 5)
+                {
+                    break;
+                }
+            }
+            pos = 0;
+            foreach (uint i in tables_)
+            {
+                StatusSelectB statusSelectBTemp_ = new StatusSelectB(nAccountMgrId, i, nAccountId);
+                foreach (StatusId j in mStatusIds)
+                {
+                    if (j._getTableId() == i)
+                    {
+                        statusSelectBTemp_._addStatusId(j._getStatusId());
+                    }
+                    ++pos;
+                    if (pos > 5)
+                    {
+                        break;
+                    }
+                }
+                sqlQuery_._addHeadstream(statusSelectBTemp_);
+                if (pos > 5)
+                {
+                    break;
+                }
+            }
+            SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
+            SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusSelectB_);
+            nStatusGetC.m_tErrorCode = this._getErrorCode(sqlErrorCode_);
+            nStatusGetC.m_tTicks = mTicks;
+            if (ErrorCode_.mSucess_ == nStatusGetC.m_tErrorCode)
+            {
+                statusSelectB_._initStatusGetC(nStatusGetC);
             }
         }
 
         public void _runAccountLogin()
         {
-            StatusMgrSelectB statusMgrSelectB_ = new StatusMgrSelectB(this);
+            Account account_ = this._getPropertyMgr<Account>();
+            AccountMgr accountMgr_ = account_._getAccountMgr();
+            uint accountMgrId_ = accountMgr_._getAccountMgrId();
+            uint accountId_ = account_._getAccountId();
+            this._runAccountLogin(accountMgrId_, accountId_);
+        }
+
+        public void _runAccountLogin(uint nAccountMgrId, uint nAccountId)
+        {
+            StatusMgrSelectB statusMgrSelectB_ = new StatusMgrSelectB(nAccountMgrId, nAccountId);
             SqlQuery sqlQuery_ = new SqlQuery();
             sqlQuery_._addHeadstream(statusMgrSelectB_);
             SqlSingleton mySqlSingleton_ = __singleton<SqlSingleton>._instance();
             SqlErrorCode_ sqlErrorCode_ = mySqlSingleton_._runSqlQuery(sqlQuery_, statusMgrSelectB_);
             if (SqlErrorCode_.mSucess_ == sqlErrorCode_)
             {
+                mTicks = statusMgrSelectB_._getTicks();
                 string value_ = statusMgrSelectB_._getString();
                 if (null != value_)
                 {
                     this._initStatusIds(value_);
                 }
-            }
-            else
-            {
-                throw new Exception();
             }
         }
 
@@ -126,7 +175,7 @@ namespace weibo.core
             return mTicks;
         }
 
-        public IDictionary<long, StatusId> _getStatusIds()
+        public List<StatusId> _getStatusIds()
         {
             return mStatusIds;
         }
@@ -140,11 +189,11 @@ namespace weibo.core
 
         public StatusMgr()
         {
-            mStatusIds = new Dictionary<long, StatusId>();
+            mStatusIds = new List<StatusId>();
             mTicks = 0;
         }
 
-        Dictionary<long, StatusId> mStatusIds;
+        List<StatusId> mStatusIds;
         long mTicks;
     }
 }

@@ -3,15 +3,22 @@
   <Class Name="weibo.message.StatusGetC" Collapsed="true">
     <Position X="0.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Status\StatusGetC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="weibo.message.StatusGetS" Collapsed="true">
     <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAIABAAAAA=</HashCode>
+      <HashCode>AAQAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAIABAAAgA=</HashCode>
       <FileName>Status\StatusGetS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="weibo.message.StatusC" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status\StatusC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="weibo.message.StatusType_" Collapsed="true">

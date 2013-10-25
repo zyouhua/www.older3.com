@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugin\Plugin.cs" />
+    <Compile Include="Status\StatusSql\StatusB.cs" />
+    <Compile Include="Status\StatusSql\StatusSelectB.cs" />
     <Compile Include="Status\StatusSql\StatusMgrInsertB.cs" />
     <Compile Include="Status\StatusSql\StatusMgrSelectB.cs" />
     <Compile Include="Status\StatusService\StatusId.cs" />

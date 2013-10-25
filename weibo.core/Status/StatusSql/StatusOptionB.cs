@@ -4,13 +4,13 @@ namespace weibo.core
 {
     public class StatusOptionB : ISqlStream
     {
-        public void _runSelect(SqlFormat nSqlFormat)
+        public void _runSelect(ISqlFormat nSqlFormat)
         {
             nSqlFormat._serialize(ref mAccountMgrId, @"accountMgrId");
             nSqlFormat._serialize(ref mTableId, @"tableId");
         }
 
-        public void _runWhen(SqlFormat nSqlFormat)
+        public void _runWhen(ISqlFormat nSqlFormat)
         {
         }
 

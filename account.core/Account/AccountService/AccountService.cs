@@ -42,6 +42,15 @@ namespace account.core
             return result_;
         }
 
+        public void _getAccountInfo(out uint nAccountMgrId, out uint nAccountId, string nAccountName)
+        {
+            uint hashName_ = GenerateId._runTableId(nAccountName);
+            AccountConfig accountConfig_ = __singleton<AccountConfig>._instance();
+            uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
+            nAccountMgrId = hashName_ % accountMgrCount_;
+            nAccountId = GenerateId._runNameId(nAccountName);
+        }
+
         public Account _getAccount(string nAccountName, long nDeviceId, uint nDeviceType)
         {
             uint hashName_ = GenerateId._runTableId(nAccountName);
@@ -59,7 +68,7 @@ namespace account.core
             uint accountMgrCount_ = accountConfig_._getAccountMgrCount();
             uint accountMgrIndex_ = hashName_ % accountMgrCount_;
             AccountMgr accountMgr_ = mAccountMgrs[accountMgrIndex_];
-            return accountMgr_._getAccount(nAccountName, nDeviceId, nDeviceType);
+            return accountMgr_._getAccount(nAccountName);
         }
 
         public IDictionary<uint, AccountMgr> _getAccountMgrs()

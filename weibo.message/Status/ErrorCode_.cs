@@ -6,5 +6,6 @@
         mFail_,
         mAccount_,
         mSucessTicks_,
+        mServerId_,
     }
 }

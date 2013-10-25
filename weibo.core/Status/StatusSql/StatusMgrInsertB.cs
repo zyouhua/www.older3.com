@@ -34,7 +34,7 @@ namespace weibo.core
         {
             Account account_ = nStatusMgr._getPropertyMgr<Account>();
             AccountMgr accountMgr_ = account_._getAccountMgr();
-            mAccountMgrId = accountMgr_._getId();
+            mAccountMgrId = accountMgr_._getAccountMgrId();
             mAccountId = account_._getAccountId();
             mTicks = account_._getTicks();
             mBytes = Encoding.UTF8.GetBytes(nStatusMgr._getStrStatusIds());

@@ -53,6 +53,9 @@ namespace weibo.core
 
         void _getStatus(StatusGetC nStatusGetC, Account nAccount, long nTicks)
         {
+            AccountMgr accountMgr_ = nAccount._getAccountMgr();
+            uint accountMgrId_ = accountMgr_._getAccountMgrId();
+            uint accountId_ = nAccount._getAccountId();
             uint propertyId_ = PropertyId<StatusMgr>._classId();
             StatusMgr statusMgr_ = nAccount._getProperty<StatusMgr>(propertyId_);
             if (statusMgr_._getTicks() == nTicks)
@@ -60,19 +63,38 @@ namespace weibo.core
                 nStatusGetC.m_tErrorCode = ErrorCode_.mSucessTicks_;
                 return;
             }
-            statusMgr_._getStatus(nStatusGetC, nTicks);
+            statusMgr_._getStatus(nStatusGetC, nTicks, accountMgrId_, accountId_);
         }
 
-        void _getStatus(StatusGetC nStatusGetC, string nName, long nTicks, uint nServer)
+        void _getStatus(StatusGetC nStatusGetC, string nAccountName, long nTicks, uint nServer)
         {
             SettingSingleton settingSingleton_ = __singleton<SettingSingleton>._instance();
             if (settingSingleton_._getServerId() != nServer)
             {
+                nStatusGetC.m_tErrorCode = ErrorCode_.mServerId_;
                 return;
             }
             AccountService accountService_ = __singleton<AccountService>._instance();
-            Account account_ = accountService_._getAccount(nName,
-                nStatusGetS.m_tDeviceId, nStatusGetS.m_tDeviceType);
+            Account account_ = accountService_._getAccount(nAccountName);
+            if (null != account_)
+            {
+                this._getStatus(nStatusGetC, account_, nTicks);
+            }
+            else
+            {
+                this._getStatus(nStatusGetC, nAccountName, nTicks);
+            }
+        }
+
+        void _getStatus(StatusGetC nStatusGetC, string nAccountName, long nTicks)
+        {
+            AccountService accountService_ = __singleton<AccountService>._instance();
+            uint accountMgrId_ = default(uint);
+            uint accountId_ = default(uint);
+            accountService_._getAccountInfo(out accountMgrId_, out accountId_, nAccountName);
+            StatusMgr statusMgr_ = new StatusMgr();
+            statusMgr_._runAccountLogin(accountMgrId_, accountId_);
+            statusMgr_._getStatus(nStatusGetC, nTicks, accountMgrId_, accountId_);
         }
 
         public void _runPreinit()

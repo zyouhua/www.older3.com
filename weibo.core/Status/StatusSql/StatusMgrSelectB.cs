@@ -11,6 +11,7 @@ namespace weibo.core
     {
         public void _runSelect(ISqlFormat nSqlFormat)
         {
+            nSqlFormat._serialize(ref mTicks, @"ticks");
             nSqlFormat._serialize(ref mBytes, @"statusIds");
         }
 
@@ -29,6 +30,11 @@ namespace weibo.core
             return SqlType_.mSelect_;
         }
 
+        public long _getTicks()
+        {
+            return mTicks;
+        }
+
         public string _getString()
         {
             string result_ = null;
@@ -39,17 +45,17 @@ namespace weibo.core
             return result_;
         }
 
-        public StatusMgrSelectB(StatusMgr nStatusMgr)
+        public StatusMgrSelectB(uint nAccountMgrId, uint nAccountId)
         {
-            Account account_ = nStatusMgr._getPropertyMgr<Account>();
-            AccountMgr accountMgr_ = account_._getAccountMgr();
-            mAccountMgrId = accountMgr_._getId();
-            mAccountId = account_._getAccountId();
+            mAccountMgrId = nAccountMgrId;
+            mAccountId = nAccountId;
+            mTicks = 0;
             mBytes = null;
         }
 
         uint mAccountMgrId;
         uint mAccountId;
+        long mTicks;
         byte[] mBytes;
     }
 }

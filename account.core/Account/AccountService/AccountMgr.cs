@@ -64,6 +64,17 @@ namespace account.core
             return result_;
         }
 
+        public Account _getAccount(string nAccountName)
+        {
+            Account result_ = null;
+            uint accountId_ = GenerateId._runNameId(nAccountName);
+            if (mAccounts.ContainsKey(accountId_))
+            {
+                result_ = mAccounts[accountId_];
+            }
+            return result_;
+        }
+
         void _loginAccountLoginB(string nAccountName, string nPassward, uint nDeviceType, AccountLoginC nAccountLoginC)
         {
             AccountLoginB accountLoginB_ = new AccountLoginB(nAccountName, mId);
@@ -123,18 +134,7 @@ namespace account.core
             return this._checkDevice(nDeviceType);
         }
 
-        public Account _getAccount(string nAccountName)
-        {
-            Account result_ = null;
-            uint accountId_ = GenerateId._runNameId(nAccountName);
-            if (mAccounts.ContainsKey(accountId_))
-            {
-                result_ = mAccounts[accountId_];
-            }
-            return result_;
-        }
-
-        public uint _getId()
+        public uint _getAccountMgrId()
         {
             return mId;
         }

@@ -96,7 +96,7 @@ namespace platform
                 MySqlCommand mySqlCommand_ = new MySqlCommand(sqlCommand_, mySqlConnection_);
                 MySqlDataReader mySqlDataReader_ = mySqlCommand_.ExecuteReader();
                 MySqlReader mySqlReader_ = new MySqlReader(mySqlDataReader_);
-                if (mySqlDataReader_.Read())
+                while (mySqlDataReader_.Read())
                 {
                     nSqlHeadstream._runSelect(mySqlReader_);
                 }

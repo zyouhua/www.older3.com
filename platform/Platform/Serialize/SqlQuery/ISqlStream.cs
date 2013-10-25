@@ -2,8 +2,8 @@
 {
     public interface ISqlStream
     {
-        void _runSelect(SqlFormat nSqlFormat);
+        void _runSelect(ISqlFormat nSqlFormat);
 
-        void _runWhen(SqlFormat nSqlFormat);
+        void _runWhen(ISqlFormat nSqlFormat);
     }
 }

@@ -7,27 +7,46 @@ namespace weibo.core
         public override void _serialize(ISerialize nSerialize)
         {
             nSerialize._serialize(ref mTableId, @"tableId");
-            nSerialize._serialize(ref mId, @"id");
+            nSerialize._serialize(ref mStatusId, @"statusId");
+            nSerialize._serialize(ref mTicks, @"ticks");
         }
 
         public long _keyI64()
         {
-            return mId;
+            return mStatusId;
         }
 
-        public StatusId(uint nTableId, long nId)
+        public long _getStatusId()
         {
+            return mStatusId;
+        }
+
+        public long _getTicks()
+        {
+            return mTicks;
+        }
+
+        public uint _getTableId()
+        {
+            return mTableId;
+        }
+
+        public StatusId(uint nTableId, long nStatusId, long nTicks)
+        {
+            mStatusId = nStatusId;
             mTableId = nTableId;
-            mId = nId;
+            mTicks = nTicks;
         }
 
         public StatusId()
         {
             mTableId = 0;
-            mId = 0;
+            mStatusId = 0;
+            mTicks = 0;
         }
 
         uint mTableId;
-        long mId;
+        long mStatusId;
+        long mTicks;
     }
 }
