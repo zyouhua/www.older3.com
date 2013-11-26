@@ -59,8 +59,12 @@ namespace startup
 
         static void _configPlugin()
         {
+#if DEBUG
             string systemPath_ = HostingEnvironment.MapPath(@"~");
-            systemPath_ = Path.Combine(systemPath_, @"../../bin/platform");
+            systemPath_ += (@"../../bin");
+#else
+            string systemPath_ = HostingEnvironment.MapPath(@"~");
+#endif
             SettingSingleton settingSingleton_ = __singleton<SettingSingleton>._instance();
             settingSingleton_._runConfig(systemPath_);
         }
@@ -68,7 +72,11 @@ namespace startup
         static void _loadPlugin()
         {
             string pluginUrl_ = @"local://";
+#if DEBUG
             pluginUrl_ += HostingEnvironment.MapPath(@"~\platform\pluginUrls.xml");
+#else
+            pluginUrl_ += HostingEnvironment.MapPath(@"~\bin\platform\pluginUrls.xml");
+#endif
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
             platformSingleton_._loadPlugin(pluginUrl_);
         }

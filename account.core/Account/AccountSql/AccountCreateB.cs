@@ -9,6 +9,7 @@ namespace account.core
         public void _runSelect(ISqlFormat nSqlFormat)
         {
             nSqlFormat._serialize(ref mAccountId, @"accountId");
+            nSqlFormat._serialize(ref mApplicationId, @"applicationId");
             nSqlFormat._serialize(ref mAccountName, @"accountName");
             nSqlFormat._serialize(ref mNickName, @"nickName");
             nSqlFormat._serialize(ref mPassward, @"passward");
@@ -36,6 +37,7 @@ namespace account.core
         public AccountCreateB(string nAccountName, string nNickname, string nPassward, uint nAccountMgrId)
         {
             mAccountId = GenerateId._runNameId(nAccountName);
+            mApplicationId = 0;
             mClusterID = GenerateId._runClusterID(nAccountName);
             mServerID = GenerateId._runServerID(nAccountName);
             mDatabaseId = GenerateId._runDatabaseId(nAccountName);
@@ -48,6 +50,7 @@ namespace account.core
         }
 
         uint mAccountId;
+        uint mApplicationId;
         string mAccountName;
         string mNickName;
         string mPassward;

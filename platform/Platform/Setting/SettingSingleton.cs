@@ -28,8 +28,7 @@ namespace platform
             {
                 mSystemPath = nPath;
             }
-            string rootPath_ = Path.Combine(mSystemPath, "..");
-            mUrlDirectory = Path.Combine(rootPath_, "home");
+            mUrlDirectory = Path.Combine(mSystemPath, "home");
         }
 
         public string _systemPath()
