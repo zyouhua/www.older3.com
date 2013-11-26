@@ -1,4 +1,9 @@
 ﻿/**
+ *		作用：		设置数据库密码
+ */
+SET old_passwords=FALSE;
+SET PASSWORD = PASSWORD('zyouhua');
+/**
  *		作用：		创建数据库
  * 		数据库名：	weibo
  */
