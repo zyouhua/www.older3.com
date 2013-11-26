@@ -163,7 +163,7 @@ namespace account.core
         public AccountMgr(uint nId)
         {
             mAccounts = new Dictionary<uint, Account>();
-            mId = 0;
+            mId = nId;
         }
 
         Dictionary<uint, Account> mAccounts;
