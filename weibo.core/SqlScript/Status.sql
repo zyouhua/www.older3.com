@@ -19,7 +19,7 @@ DROP PROCEDURE IF EXISTS `statusMgr`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `statusMgr`()
 BEGIN
 	DECLARE i INT DEFAULT 0;
-	DECLARE tableCount INT DEFAULT 10;
+	DECLARE tableCount INT DEFAULT 20;
 	WHILE i < tableCount
 	DO
 		SET @STMT := CONCAT("CREATE  TABLE `statusMgr_", FORMAT(i, 0), "` (
