@@ -2,32 +2,27 @@
 using System.Reflection;
 using System.Collections.Generic;
 
+using mpq;
+using startup.i;
+
 namespace platform
 {
     public class AssemblyUdl : Udl
     {
         public override void _runLoad(string nUrl)
         {
+            UrlParser urlParser_ = new UrlParser(nUrl);
+            string url_ = urlParser_._returnResult();
+            AssemblyUrl assemblyUrl_ = __singleton<AssemblyUrl>._instance();
+            if (assemblyUrl_._contain(url_))
+            {
+                mAssembly = assemblyUrl_._getAssembly(url_);
+                return;
+            }
             base._runLoad(nUrl);
 
             string assemblyInfoUrl_ = nUrl + @"*$assembly.xml";
             mAssemblyInfo._runLoad(assemblyInfoUrl_);
-
-            UdlHeadstream udlHeadstream_ = this._getUdlHeadstream();
-            string fileName_ = udlHeadstream_._getFileName();
-            UrlParser urlParser_ = new UrlParser(nUrl);
-            string assemblyPath_ = urlParser_._urlFile(fileName_);
-            AssemblyName assemblyName_ = AssemblyName.GetAssemblyName(assemblyPath_);
-            AppDomain appDomain_ = AppDomain.CurrentDomain;
-            Assembly[] assemblies_ = appDomain_.GetAssemblies();
-            foreach (Assembly i in assemblies_)
-            {
-                if (string.Compare(i.FullName, assemblyName_.FullName) == 0)
-                {
-                    mAssembly = i;
-                    return;
-                }
-            }
 
             UidSingleton uidSingleton_ = __singleton<UidSingleton>._instance();
             IEnumerable<Rid> rids_ = mAssemblyDescriptor._getRids();
@@ -68,13 +63,15 @@ namespace platform
 
             if (null == mAssembly)
             {
-                mAssembly = Assembly.LoadFrom(assemblyPath_);
+                Mpq mpq_ = __singleton<Mpq>._instance();
+                mAssembly = mpq_._loadAssembly(nUrl);
             }
+            assemblyUrl_._pushUrl(nUrl, mAssembly);
         }
 
         public __t _findFullClass<__t>(string nId)
         {
-            object result_ = mAssembly.CreateInstance(nId);
+            object result_ =  mAssembly.CreateInstance(nId);
             return (__t)result_;
         }
 

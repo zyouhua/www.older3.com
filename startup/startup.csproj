@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,6 +41,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="PrecompiledMvcViewEngineContrib">
       <HintPath>..\packages\PrecompiledMvcViewEngineContrib.1.0\lib\net40\PrecompiledMvcViewEngineContrib.dll</HintPath>
     </Reference>
@@ -128,9 +131,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
-    <None Include="platform\pluginUrls.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -150,9 +150,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\platform\platform.csproj">
-      <Project>{1a3a1c4e-dc54-419a-ae95-6ae53600797d}</Project>
-      <Name>platform</Name>
+    <ProjectReference Include="..\mpq\mpq.vcxproj">
+      <Project>{c72a9577-9974-4444-a251-71a71a733325}</Project>
+      <Name>mpq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\startup.i\startup.i.csproj">
+      <Project>{7dccb96b-68e6-4aef-b9f3-7530461cf9cc}</Project>
+      <Name>startup.i</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

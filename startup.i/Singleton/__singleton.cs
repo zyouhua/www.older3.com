@@ -1,4 +1,4 @@
-﻿namespace platform
+﻿namespace startup.i
 {
     public class __singleton<__t> where __t : new()
     {

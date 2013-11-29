@@ -1,6 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Collections.Generic;
+
+using mpq;
+using startup.i;
+using System.Text;
 
 namespace platform
 {
@@ -1148,9 +1153,25 @@ namespace platform
 
         public void _openUrl(string nUrl)
         {
-            UrlParser urlParser_ = new UrlParser(nUrl);
-            string path_ = urlParser_._returnResult();
-            mXmlDocument.Load(path_);
+            UrlParser urlParser = new UrlParser(nUrl);
+            urlParser._returnResult();
+            Byte [] byte_ = null;
+            uint size_ = 0;
+            Mpq mpq_ = __singleton<Mpq>._instance();
+            mpq_._readFile(nUrl, ref byte_, ref size_);
+            string nvalue = Encoding.UTF8.GetString(byte_);
+            if (size_ > 0)
+            {
+                byte_[size_ - 1] = 13;
+                byte_[size_ - 2] = 10;
+                MemoryStream memoryStream = new MemoryStream(byte_);
+                mXmlDocument.Load(memoryStream);
+            }
+        }
+
+        public void _openPath(string nPath)
+        {
+            mXmlDocument.Load(nPath);
         }
 
         public void _openString(string nString)

@@ -2,6 +2,7 @@
 
 using startup;
 using platform;
+using startup.i;
 
 namespace weibo.ui
 {

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
 
+using startup.i;
+
 namespace platform
 {
     public class SqlSingleton : Headstream

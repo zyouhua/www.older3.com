@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<packages>
+  
+  <package>
+    <__t name="url://www.wanmei.com/account\account.core"
+         value="account.core.dll"/>
+    <__t name="url://www.wanmei.com/account\account.core*$assembly.xml"
+         value="$assembly.xml"/>
+    <__t name="url://www.wanmei.com/account\account.core*$descriptor.xml"
+         value="$descriptor.xml"/>
+  </package>
+  
+</packages>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<packages>
+
+  <package>
+    <__t name="url://www.wanmei.com/weibo\weibo.ui"
+         value="weibo.ui.dll"/>
+    <__t name="url://www.wanmei.com/weibo\weibo.ui*$assembly.xml"
+         value="$assembly.xml"/>
+    <__t name="url://www.wanmei.com/weibo\weibo.ui*$descriptor.xml"
+         value="$descriptor.xml"/>
+  </package>
+
+</packages>

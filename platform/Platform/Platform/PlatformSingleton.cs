@@ -3,6 +3,9 @@ using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 
+using mpq;
+using startup.i;
+
 namespace platform
 {
     public class PlatformSingleton
@@ -96,14 +99,6 @@ namespace platform
 
         public void _loadUdl<__t>(__t nT, string nUrl) where __t : IUdl
         {
-            if (!this._isUdl(nUrl))
-            {
-                return;
-            }
-            if (!this._haveUdl(nUrl))
-            {
-                return;
-            }
             string udlHeadstreamUrl_ = nUrl + @"*$descriptor.xml";
             UdlHeadstream udlHeadstream_ = nT._getUdlHeadstream();
             this._readHeadstream(udlHeadstream_, udlHeadstreamUrl_);
@@ -113,11 +108,8 @@ namespace platform
             string stringTableUrl_ = nUrl + "*$";
             stringTableUrl_ += cultureName_;
             stringTableUrl_ += ".stringTable.xml";
-            if (!this._haveUfl(stringTableUrl_))
-            {
-                stringTableUrl_ = nUrl + "*$stringTable.xml";
-            }
-            if (this._haveUfl(stringTableUrl_))
+            Mpq mpq_ = __singleton<Mpq>._instance();
+            if (mpq_._haveFile(stringTableUrl_))
             {
                 StringTable stringTable_ = nT._getStringTable();
                 this._readHeadstream(stringTable_, stringTableUrl_);
@@ -551,9 +543,9 @@ namespace platform
             }
         }
 
-        public void _loadPlugin(string nAppUrl)
+        public void _loadPlugin()
         {
-            PluginUrls pluginUrls_ = this._findHeadstream<PluginUrls>(nAppUrl);
+            PluginUrls pluginUrls_ = this._findHeadstream<PluginUrls>(@"pluginUrls.xml");
             IList<string> plugins_ = pluginUrls_._getPlugins();
             foreach (string i in plugins_)
             {

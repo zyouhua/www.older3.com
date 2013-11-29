@@ -609,6 +609,13 @@ namespace platform
             mXmlDocument.AppendChild(xmlDeclaration_);
         }
 
+        public void _openPath(string nPath)
+        {
+            mPath = nPath;
+            XmlDeclaration xmlDeclaration_ = mXmlDocument.CreateXmlDeclaration("1.0", "utf-8", null);
+            mXmlDocument.AppendChild(xmlDeclaration_);
+        }
+
         public void _openString(string nString)
         {
             XmlDeclaration xmlDeclaration_ = mXmlDocument.CreateXmlDeclaration("1.0", "utf-8", null);

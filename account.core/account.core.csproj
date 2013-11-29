@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -70,7 +71,12 @@
     </ProjectReference>
     <ProjectReference Include="..\platform\platform.csproj">
       <Project>{1a3a1c4e-dc54-419a-ae95-6ae53600797d}</Project>
-      <Name>platform</Name>
+      <Name>platform %28platform\platform%29</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\startup.i\startup.i.csproj">
+      <Project>{7dccb96b-68e6-4aef-b9f3-7530461cf9cc}</Project>
+      <Name>startup.i</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
@@ -83,6 +89,9 @@
     <None Include="config\sqlConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="packages.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlScript\Account.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

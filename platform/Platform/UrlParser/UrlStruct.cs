@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 
+using startup.i;
+
 namespace platform
 {
     public class UrlStruct

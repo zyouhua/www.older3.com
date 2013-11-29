@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Reflection;
 
+using mpq;
+using startup.i;
+
 namespace platform
 {
     public class AssemblyUfl : Ufl
     {
         public override void _runLoad(string nUrl)
         {
-            UrlParser urlParser_ = new UrlParser(nUrl);
-            string assemblyPath_ = urlParser_._returnResult();
-            AssemblyName assemblyName_ = AssemblyName.GetAssemblyName(assemblyPath_);
-            AppDomain appDomain_ = AppDomain.CurrentDomain;
-            Assembly[] assemblies_ = appDomain_.GetAssemblies();
-            foreach (Assembly i in assemblies_)
+            AssemblyUrl assemblyUrl_ = __singleton<AssemblyUrl>._instance();
+            if (assemblyUrl_._contain(nUrl))
             {
-                if (string.Compare(i.FullName, assemblyName_.FullName) == 0)
-                {
-                    mAssembly = i;
-                }
+                mAssembly = assemblyUrl_._getAssembly(nUrl);
+                return;
             }
             if (null == mAssembly)
             {
-                mAssembly = Assembly.LoadFrom(assemblyPath_);
+                Mpq mpq_ = __singleton<Mpq>._instance();
+                mAssembly = mpq_._loadAssembly(nUrl);
             }
             base._runLoad(nUrl);
+            assemblyUrl_._pushUrl(nUrl, mAssembly);
         }
 
         public __t _findFullClass<__t>(string nId)

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<packages>
+  
+  <package>
+    <__t name="platform.dll"
+         value="platform.dll"/>
+    <__t name="pluginUrls.xml"
+         value="pluginUrls.xml"/>
+  </package>
+  
+</packages>

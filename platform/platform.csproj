@@ -17,15 +17,16 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\..\bin\home\platform\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\..\bin\home\platform\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Platform\Url\Assembly\AssemblyUrl.cs" />
     <Compile Include="Platform\Init\InitService.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\MySqlReader.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\ISqlFormat.cs" />
@@ -148,7 +150,6 @@
     <Compile Include="Platform\Utility\_GetStringSlot.cs" />
     <Compile Include="Platform\Utility\_RunSlot.cs" />
     <Compile Include="Platform\Utility\_SetStringSlot.cs" />
-    <Compile Include="Platform\Utility\__singleton.cs" />
     <Compile Include="Platform\Utility\__tuple.cs" />
     <Compile Include="Platform\Serialize\Xml\XmlISerialize.cs" />
     <Compile Include="Platform\Serialize\Xml\XmlOSerialize.cs" />
@@ -164,11 +165,31 @@
     <Compile Include="Platform\Serialize\SqlQuery\SqlField_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlFieldId_.cs" />
     <Compile Include="Platform\Serialize\SqlQuery\SqlParameter.cs" />
+    <Compile Include="Platform\Startup\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="diagram.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\mpq\mpq.vcxproj">
+      <Project>{c72a9577-9974-4444-a251-71a71a733325}</Project>
+      <Name>mpq</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\startup.i\startup.i.csproj">
+      <Project>{7dccb96b-68e6-4aef-b9f3-7530461cf9cc}</Project>
+      <Name>startup.i</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="pluginUrls.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

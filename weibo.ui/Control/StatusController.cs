@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 
 using platform;
+using startup.i;
 using weibo.message;
 
 namespace weibo.ui

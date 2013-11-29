@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using platform;
+using startup.i;
 using account.core;
 
 namespace weibo.core

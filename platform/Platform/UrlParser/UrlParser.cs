@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 
+using startup.i;
+
 namespace platform
 {
     public class UrlParser
@@ -538,6 +540,12 @@ namespace platform
                 return;
             }
             mUrlType = UrlType_.mHttp_;
+        }
+
+        void _urlUrlEx(string nUrl)
+        {
+            mResult_ = nUrl;
+            mUrlType = UrlType_.mUrl_;
         }
 
         void _fileIdUrl(string nUrl)

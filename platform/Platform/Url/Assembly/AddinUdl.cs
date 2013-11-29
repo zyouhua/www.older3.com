@@ -1,4 +1,6 @@
-﻿namespace platform
+﻿using startup.i;
+
+namespace platform
 {
     public class AddinUdl : AssemblyUdl
     {

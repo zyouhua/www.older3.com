@@ -6,7 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using platform;
+using mpq;
+using startup.i;
 
 namespace startup
 {
@@ -20,12 +21,18 @@ namespace startup
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            Startup._runStart();
+
+            StartupSingleton startupSingleton_ = __singleton<StartupSingleton>._instance();
+            startupSingleton_._runStart();
         }
 
         protected void Application_End()
         {
-            Startup._runQuit();
+            Mpq mpq_ = __singleton<Mpq>._instance();
+            mpq_._runClose();
+
+            StartupSingleton startupSingleton_ = __singleton<StartupSingleton>._instance();
+            startupSingleton_._runQuit();
         }
     }
 }
