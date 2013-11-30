@@ -1154,11 +1154,11 @@ namespace platform
         public void _openUrl(string nUrl)
         {
             UrlParser urlParser = new UrlParser(nUrl);
-            urlParser._returnResult();
+            string url_ = urlParser._returnResult();
             Byte [] byte_ = null;
             uint size_ = 0;
             Mpq mpq_ = __singleton<Mpq>._instance();
-            mpq_._readFile(nUrl, ref byte_, ref size_);
+            mpq_._readFile(url_, ref byte_, ref size_);
             string nvalue = Encoding.UTF8.GetString(byte_);
             if (size_ > 0)
             {

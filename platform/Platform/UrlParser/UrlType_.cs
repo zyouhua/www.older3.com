@@ -5,6 +5,7 @@
         mError_,
         mfileId_,
         mLocal_,
+        mMpq_,
         mHttp_,
         mCid_,
         mRid_,

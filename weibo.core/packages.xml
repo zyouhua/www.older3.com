@@ -2,11 +2,11 @@
 <packages>
 
   <package>
-    <__t name="url://www.wanmei.com/weibo\weibo.core"
+    <__t name="mpq://www.wanmei.com/weibo\weibo.core"
          value="weibo.core.dll"/>
-    <__t name="url://www.wanmei.com/weibo\weibo.core*$assembly.xml"
+    <__t name="mpq://www.wanmei.com/weibo\weibo.core*$assembly.xml"
          value="$assembly.xml"/>
-    <__t name="url://www.wanmei.com/weibo\weibo.core*$descriptor.xml"
+    <__t name="mpq://www.wanmei.com/weibo\weibo.core*$descriptor.xml"
          value="$descriptor.xml"/>
   </package>
 

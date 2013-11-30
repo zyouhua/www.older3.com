@@ -99,13 +99,15 @@ namespace platform
 
         public void _loadUdl<__t>(__t nT, string nUrl) where __t : IUdl
         {
-            string udlHeadstreamUrl_ = nUrl + @"*$descriptor.xml";
+            UrlParser urlParser_ = new UrlParser(nUrl);
+            string url_ = urlParser_._returnResult();
+            string udlHeadstreamUrl_ = url_ + @"*$descriptor.xml";
             UdlHeadstream udlHeadstream_ = nT._getUdlHeadstream();
             this._readHeadstream(udlHeadstream_, udlHeadstreamUrl_);
 
             ICulture culture_ = this._currentCulture();
             string cultureName_ = culture_._cultureName();
-            string stringTableUrl_ = nUrl + "*$";
+            string stringTableUrl_ = url_ + "*$";
             stringTableUrl_ += cultureName_;
             stringTableUrl_ += ".stringTable.xml";
             Mpq mpq_ = __singleton<Mpq>._instance();
@@ -258,34 +260,24 @@ namespace platform
 
         public void _loadStdUdl<__t>(__t nT, string nUrl) where __t : IStdUdl
         {
-            if (!this._isUdl(nUrl))
-            {
-                return;
-            }
-            if (!this._haveUdl(nUrl))
-            {
-                return;
-            }
-            string udlHeadstreamUrl_ = nUrl + @"*$descriptor.xml";
+            UrlParser urlParser_ = new UrlParser(nUrl);
+            string url_ = urlParser_._returnResult();
+            string udlHeadstreamUrl_ = url_ + @"*$descriptor.xml";
             UdlHeadstream udlHeadstream_ = nT._getUdlHeadstream();
             this._readHeadstream(udlHeadstream_, udlHeadstreamUrl_);
 
             ICulture culture_ = this._currentCulture();
             string cultureName_ = culture_._cultureName();
-            string stringTableUrl_ = nUrl + "*$";
+            string stringTableUrl_ = url_ + "*$";
             stringTableUrl_ += cultureName_;
             stringTableUrl_ += ".stringTable.xml";
-            if (!this._haveUfl(stringTableUrl_))
-            {
-                stringTableUrl_ = nUrl + "*$stringTable.xml";
-            }
-            if (this._haveUfl(stringTableUrl_))
+            Mpq mpq_ = __singleton<Mpq>._instance();
+            if (mpq_._haveFile(stringTableUrl_))
             {
                 StringTable stringTable_ = nT._getStringTable();
                 this._readHeadstream(stringTable_, stringTableUrl_);
             }
-
-            string udlUrl_ = nUrl + @"*";
+            string udlUrl_ = url_ + @"*";
             udlUrl_ += udlHeadstream_._getFileName();
             this._readHeadstream(nT, udlUrl_);
         }
@@ -545,7 +537,7 @@ namespace platform
 
         public void _loadPlugin()
         {
-            PluginUrls pluginUrls_ = this._findHeadstream<PluginUrls>(@"pluginUrls.xml");
+            PluginUrls pluginUrls_ = this._findHeadstream<PluginUrls>(@"mpq://pluginUrls.xml");
             IList<string> plugins_ = pluginUrls_._getPlugins();
             foreach (string i in plugins_)
             {

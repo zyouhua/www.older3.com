@@ -6,10 +6,10 @@
   <rids>
 
     <__t id="account.core.accountConfig"
-         url="url://www.wanmei.com/account\account.core/config*accountConfig.xml" />
+         url="mpq://www.wanmei.com/account\account.core/config*accountConfig.xml" />
 
     <__t id="account.core.sqlConfig"
-     url="url://www.wanmei.com/account\account.core/config*sqlConfig.xml" />
+     url="mpq://www.wanmei.com/account\account.core/config*sqlConfig.xml" />
 
   </rids>
 

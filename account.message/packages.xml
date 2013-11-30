@@ -2,11 +2,11 @@
 <packages>
 
   <package>
-    <__t name="url://www.wanmei.com/account\account.message"
+    <__t name="mpq://www.wanmei.com/account\account.message"
          value="account.message.dll"/>
-    <__t name="url://www.wanmei.com/account\account.message*$assembly.xml"
+    <__t name="mpq://www.wanmei.com/account\account.message*$assembly.xml"
          value="$assembly.xml"/>
-    <__t name="url://www.wanmei.com/account\account.message*$descriptor.xml"
+    <__t name="mpq://www.wanmei.com/account\account.message*$descriptor.xml"
          value="$descriptor.xml"/>
   </package>
 

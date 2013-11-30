@@ -4,7 +4,9 @@
     {
         public override void _runLoad(string nUrl)
         {
-            base._runLoad(nUrl);
+            UrlParser urlParser_ = new UrlParser(nUrl);
+            string url_ = urlParser_._returnResult();
+            base._runLoad(url_);
             this._runPlugin();
         }
 

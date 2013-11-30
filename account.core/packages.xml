@@ -2,12 +2,16 @@
 <packages>
   
   <package>
-    <__t name="url://www.wanmei.com/account\account.core"
+    <__t name="mpq://www.wanmei.com/account\account.core"
          value="account.core.dll"/>
-    <__t name="url://www.wanmei.com/account\account.core*$assembly.xml"
+    <__t name="mpq://www.wanmei.com/account\account.core*$assembly.xml"
          value="$assembly.xml"/>
-    <__t name="url://www.wanmei.com/account\account.core*$descriptor.xml"
+    <__t name="mpq://www.wanmei.com/account\account.core*$descriptor.xml"
          value="$descriptor.xml"/>
+    <__t name="mpq://www.wanmei.com/account\account.core/config*accountConfig.xml"
+         value="config/accountConfig.xml"/>
+    <__t name="mpq://www.wanmei.com/account\account.core/config*sqlConfig.xml"
+         value="config/sqlConfig.xml"/>
   </package>
   
 </packages>

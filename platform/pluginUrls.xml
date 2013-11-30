@@ -2,10 +2,10 @@
 <pluginUrls>
   
   <plugins>
-    <__str name="帐号"><![CDATA[url://www.wanmei.com/account\account.ui:account.ui.Plugin]]></__str>
-    <__str name="帐号UI"><![CDATA[url://www.wanmei.com/account\account.core:account.core.Plugin]]></__str>
-    <__str name="微博"><![CDATA[url://www.wanmei.com/weibo\weibo.ui:weibo.ui.Plugin]]></__str>
-    <__str name="微博UI"><![CDATA[url://www.wanmei.com/weibo\weibo.core:weibo.core.Plugin]]></__str>
+    <__str name="帐号"><![CDATA[mpq://www.wanmei.com/account\account.ui:account.ui.Plugin]]></__str>
+    <__str name="帐号UI"><![CDATA[mpq://www.wanmei.com/account\account.core:account.core.Plugin]]></__str>
+    <__str name="微博"><![CDATA[mpq://www.wanmei.com/weibo\weibo.ui:weibo.ui.Plugin]]></__str>
+    <__str name="微博UI"><![CDATA[mpq://www.wanmei.com/weibo\weibo.core:weibo.core.Plugin]]></__str>
   </plugins>
   
 </pluginUrls>

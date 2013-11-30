@@ -136,6 +136,18 @@ namespace platform
             {
                 result_ = mUrlStruct._noClassUrl(mUrl);
             }
+            else if (UrlType_.mMpq_ == mUrlType)
+            {
+                int beg_ = mUrl.LastIndexOf(@":");
+                if (beg_ < 6)
+                {
+                    result_ = mUrl;
+                }
+                else
+                {
+                    result_ = mUrl.Substring(0, beg_);
+                }
+            }
             return result_;
         }
 
@@ -179,6 +191,18 @@ namespace platform
             if (UrlType_.mUrl_ == mUrlType || UrlType_.mUid_ == mUrlType || UrlType_.mRid_ == mUrlType)
             {
                 result_ = mUrlStruct._className();
+            }
+            else if (UrlType_.mMpq_ == mUrlType)
+            {
+                int beg_ = mUrl.LastIndexOf(@":");
+                if (beg_ > 6)
+                {
+                    result_ = mUrl.Substring(beg_ + 1);
+                }
+            }
+            else
+            {
+
             }
             return result_;
         }
@@ -232,6 +256,7 @@ namespace platform
         {
             return mId;
         }
+
         public string _findUrl(string nUrl)
         {
             string result_ = null;
@@ -310,6 +335,10 @@ namespace platform
             else if (mUrl.StartsWith(@"local://"))
             {
                 this._localUrl(mUrl);
+            }
+            else if (mUrl.StartsWith(@"mpq://"))
+            {
+                this._mpqUrl(mUrl);
             }
             else
             {
@@ -414,9 +443,7 @@ namespace platform
             {
                 ridUrl_ += left_;
             }
-            mUrlStruct = new UrlStruct();
-            mUrlStruct._parserUrl(ridUrl_);
-            mUrlType = UrlType_.mRid_;
+            this._parserUrl(ridUrl_);
         }
 
         string _findUidUrl(string nUrl)
@@ -512,9 +539,7 @@ namespace platform
             {
                 uidUrl_ += left_;
             }
-            mUrlStruct = new UrlStruct();
-            mUrlStruct._parserUrl(uidUrl_);
-            mUrlType = UrlType_.mUid_;
+            this._parserUrl(uidUrl_);
         }
 
         void _cidUrl(string nUrl)
@@ -569,6 +594,16 @@ namespace platform
                 return;
             }
             mUrlType = UrlType_.mLocal_;
+        }
+
+        void _mpqUrl(string nUrl)
+        {
+            mResult_ = nUrl;
+            if (null == mResult_ || @"" == mResult_)
+            {
+                return;
+            }
+            mUrlType = UrlType_.mMpq_;
         }
 
         public UrlParser(string nUrl)

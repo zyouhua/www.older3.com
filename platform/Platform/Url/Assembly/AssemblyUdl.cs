@@ -19,9 +19,9 @@ namespace platform
                 mAssembly = assemblyUrl_._getAssembly(url_);
                 return;
             }
-            base._runLoad(nUrl);
+            base._runLoad(url_);
 
-            string assemblyInfoUrl_ = nUrl + @"*$assembly.xml";
+            string assemblyInfoUrl_ = url_ + @"*$assembly.xml";
             mAssemblyInfo._runLoad(assemblyInfoUrl_);
 
             UidSingleton uidSingleton_ = __singleton<UidSingleton>._instance();
@@ -64,9 +64,9 @@ namespace platform
             if (null == mAssembly)
             {
                 Mpq mpq_ = __singleton<Mpq>._instance();
-                mAssembly = mpq_._loadAssembly(nUrl);
+                mAssembly = mpq_._loadAssembly(url_);
             }
-            assemblyUrl_._pushUrl(nUrl, mAssembly);
+            assemblyUrl_._pushUrl(url_, mAssembly);
         }
 
         public __t _findFullClass<__t>(string nId)

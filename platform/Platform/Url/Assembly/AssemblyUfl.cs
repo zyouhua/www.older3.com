@@ -10,19 +10,22 @@ namespace platform
     {
         public override void _runLoad(string nUrl)
         {
+            UrlParser urlParser_ = new UrlParser(nUrl);
+            string url_ = urlParser_._returnResult();
+
             AssemblyUrl assemblyUrl_ = __singleton<AssemblyUrl>._instance();
-            if (assemblyUrl_._contain(nUrl))
+            if (assemblyUrl_._contain(url_))
             {
-                mAssembly = assemblyUrl_._getAssembly(nUrl);
+                mAssembly = assemblyUrl_._getAssembly(url_);
                 return;
             }
             if (null == mAssembly)
             {
                 Mpq mpq_ = __singleton<Mpq>._instance();
-                mAssembly = mpq_._loadAssembly(nUrl);
+                mAssembly = mpq_._loadAssembly(url_);
             }
-            base._runLoad(nUrl);
-            assemblyUrl_._pushUrl(nUrl, mAssembly);
+            base._runLoad(url_);
+            assemblyUrl_._pushUrl(url_, mAssembly);
         }
 
         public __t _findFullClass<__t>(string nId)

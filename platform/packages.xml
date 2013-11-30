@@ -2,9 +2,9 @@
 <packages>
   
   <package>
-    <__t name="platform.dll"
+    <__t name="mpq://platform.dll"
          value="platform.dll"/>
-    <__t name="pluginUrls.xml"
+    <__t name="mpq://pluginUrls.xml"
          value="pluginUrls.xml"/>
   </package>
   
