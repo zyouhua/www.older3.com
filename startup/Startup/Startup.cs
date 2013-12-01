@@ -2,6 +2,7 @@
 using System.Web;
 using System.Reflection;
 using System.Web.Hosting;
+using System.Web.Compilation;
 
 using mpq;
 using startup.i;
@@ -18,6 +19,7 @@ namespace startup
             mvcEngineSingleton_._addAssembly(assembly);
 
             Mpq mpq_ = __singleton<Mpq>._instance();
+
 #if DEBUG
             string systemPath_ = HostingEnvironment.MapPath(@"~");
             systemPath_ = Path.Combine(systemPath_, @"../../bin/home/");

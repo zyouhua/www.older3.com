@@ -19,7 +19,6 @@ namespace startup
         public void _addAssembly(Assembly nAssembly)
         {
             mAssemblys.Add(nAssembly);
-            BuildManager.AddReferencedAssembly(nAssembly);
         }
 
         public MvcEngineSingleton()

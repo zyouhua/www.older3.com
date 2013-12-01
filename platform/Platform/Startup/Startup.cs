@@ -9,7 +9,6 @@ namespace platform
     {
         public void _runInit()
         {
-            this._initAssemblyLoad();
             this._configPlugin();
             this._loadPlugin();
         }
@@ -48,26 +47,6 @@ namespace platform
         {
             PlatformSingleton platformSingleton_ = __singleton<PlatformSingleton>._instance();
             platformSingleton_._loadPlugin();
-        }
-
-        void _initAssemblyLoad()
-        {
-            AppDomain appdomain_ = AppDomain.CurrentDomain;
-            appdomain_.AssemblyResolve += _assemblyLoad;
-        }
-
-        static Assembly _assemblyLoad(object source, ResolveEventArgs e)
-        {
-            AppDomain appDomain_ = AppDomain.CurrentDomain;
-            Assembly[] assemblies_ = appDomain_.GetAssemblies();
-            foreach (Assembly i in assemblies_)
-            {
-                if (string.Compare(i.FullName, e.Name) == 0)
-                {
-                    return i;
-                }
-            }
-            return null;
         }
     }
 }
